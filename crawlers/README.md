@@ -1,3 +1,7 @@
+# Introduction
+
+该文件夹用于保存 Python 爬虫文件，`/stable` 为稳定版本，`/beta` 为测试版本。
+
 # Crawlers‘ Problems & Updating
 
 ### Version 1.0 - 2021/06/25
@@ -11,6 +15,6 @@
 
 ### Version 1.2 (Beta) - 2021/07/01
 
-- 新增了1.1版本用户自定义爬虫扫描功能
+- 在v1.1的基础上新增了用户自定义爬虫扫描功能，文件夹为`/beta/customize`
 - 读取数据库进行扫描，扫描算法未优化
 
