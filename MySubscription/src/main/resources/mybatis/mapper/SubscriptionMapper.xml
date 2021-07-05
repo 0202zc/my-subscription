@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzc.mapper.SubscriptionMapper">
+    <resultMap id="SubscriptionMap" type="com.lzc.pojo.Subscription">
+        <result column="user_id" property="userId"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="allow_send" property="allowSend"/>
+        <result column="gmt_create" property="subscribeTime"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryAllSubscriptions" resultType="Subscription" resultMap="SubscriptionMap">
+        select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
+        from subscription;
+    </select>
+    <select id="querySubscription" parameterType="Subscription" resultType="Subscription" resultMap="SubscriptionMap">
+        select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
+        from subscription
+        where user_id = #{userId} and service_id = #{serviceId} and send_time = #{sendTime};
+    </select>
+    <select id="querySubscriptionsByEmail" resultType="Subscription" parameterType="java.lang.String"
+            resultMap="SubscriptionMap">
+        select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
+        from subscription
+        where user_id in (
+            select id
+            from users
+            where email = #{email}
+        );
+    </select>
+    <select id="querySubscriptionsByUserId" resultType="Subscription" parameterType="java.lang.Integer"
+            resultMap="SubscriptionMap">
+        select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
+        from subscription
+        where user_id = #{userId};
+    </select>
+    <select id="querySubscriptionById" resultType="Subscription" parameterType="java.lang.Integer"
+            resultMap="SubscriptionMap">
+        select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
+        from subscription
+        where id = #{id};
+    </select>
+    <insert id="insertSubscription" parameterType="Subscription" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO subscription(user_id, service_id, send_time, allow_send)
+        VALUES (#{userId}, #{serviceId}, #{sendTime}, #{allowSend});
+    </insert>
+    <delete id="deleteSubscription">
+        DELETE
+        FROM subscription
+        WHERE send_time = #{sendTime} AND service_id = #{serviceId}
+          AND user_id IN (
+            SELECT id
+            FROM users
+            WHERE email = #{email}
+            );
+    </delete>
+    <update id="updateSubscription">
+        UPDATE subscription
+        SET service_id = #{newServiceId},
+            send_time  = #{newSendTime},
+            allow_send = #{allowSend}
+        WHERE service_id = #{oldServiceId}
+          AND send_time = #{oldSendTime}
+          AND user_id IN (
+            SELECT id
+            FROM users
+            WHERE email = #{oldEmail}
+        );
+    </update>
+    <delete id="deleteSubscriptionByUserId" parameterType="java.lang.Integer">
+        DELETE
+        FROM subscription
+        WHERE user_id = #{userId};
+    </delete>
+    <update id="updateSubsState" parameterType="java.lang.Integer">
+        UPDATE subscription
+        SET allow_send = #{newState}
+        WHERE id = #{id};
+    </update>
+</mapper>

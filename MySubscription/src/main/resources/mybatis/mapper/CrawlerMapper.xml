@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzc.mapper.CrawlerMapper">
+    <resultMap id="CrawlerMap" type="com.lzc.pojo.Crawler">
+        <result column="crawler_name" property="crawlerName"/>
+        <result column="file_path" property="filePath"/>
+        <result column="file_type" property="fileType"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryAllCrawlers" resultType="Crawler" resultMap="CrawlerMap">
+        SELECT id, crawler_name, file_path, email, enabled, file_type, gmt_create, gmt_modified
+        FROM crawlers;
+    </select>
+
+    <select id="queryCrawlerById" parameterType="java.lang.Integer" resultType="Crawler" resultMap="CrawlerMap">
+        SELECT id, crawler_name, file_path, email, enabled, file_type, gmt_create, gmt_modified
+        FROM crawlers
+        WHERE id = #{id, jdbcType = BIGINT};
+    </select>
+
+    <select id="queryCrawlerByPath" parameterType="java.lang.String" resultType="Crawler" resultMap="CrawlerMap">
+        SELECT id, crawler_name, file_path, email, enabled, file_type, gmt_create, gmt_modified
+        FROM crawlers
+        WHERE file_path = #{filePath, jdbcType = VARCHAR};
+    </select>
+
+    <select id="queryCrawlersByPath" parameterType="java.lang.String" resultType="Crawler" resultMap="CrawlerMap">
+        SELECT id, crawler_name, file_path, email, enabled, file_type, gmt_create, gmt_modified
+        FROM crawlers
+        WHERE file_path like CONCAT('%', #{filePath, jdbcType = VARCHAR}, '%');
+    </select>
+
+    <select id="queryServiceCrawlerIdByServiceAndCrawlerId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT id
+        FROM service_crawler
+        WHERE service_id = #{serviceId} and crawler_id = #{crawlerId};
+    </select>
+
+    <select id="queryCrawlersByServiceId" parameterType="java.lang.Integer" resultType="Crawler">
+        SELECT c.id, c.crawler_name as `crawlerName`, c.file_path as `filePath`, c.enabled, c.gmt_create as `gmtCreate`, c.gmt_modified as `gmtModified`
+        FROM crawlers c
+        LEFT JOIN service_crawler sc on c.id = sc.crawler_id
+        WHERE sc.service_id = #{serviceId};
+    </select>
+
+    <delete id="deleteCrawlerById" parameterType="java.lang.Integer">
+        DELETE
+        FROM crawlers
+        WHERE id = #{id};
+    </delete>
+
+    <insert id="addCrawler" statementType="CALLABLE" parameterType="java.util.Map">
+        {CALL proc_addCrawler(
+                #{crawlerName, mode=IN, jdbcType=VARCHAR},
+                #{filePath, mode=IN, jdbcType=VARCHAR},
+                #{enabled, mode=IN, jdbcType=TINYINT},
+                #{id, mode=OUT, jdbcType=BIGINT}
+            )}
+    </insert>
+
+    <insert id="addCrawlerWithService" statementType="CALLABLE" parameterType="java.util.Map">
+        {CALL proc_addCrawl(
+                #{crawlerName, mode=IN, jdbcType=VARCHAR},
+                #{filePath, mode=IN, jdbcType=VARCHAR},
+                #{enabled, mode=IN, jdbcType=TINYINT},
+                #{serviceId, mode=IN, jdbcType=BIGINT},
+                #{scId, mode=OUT, jdbcType=BIGINT}
+            )}
+    </insert>
+
+    <insert id="addAssociation" parameterType="java.lang.Integer">
+        INSERT INTO service_crawler (service_id, crawler_id) values (#{serviceId}, #{crawlerId});
+    </insert>
+
+    <update id="updateCrawler" parameterType="Crawler">
+        UPDATE crawlers
+        SET crawler_name = #{crawlerName},
+            file_path    = #{filePath},
+            enabled      = #{enabled}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateCrawlerWithService" parameterType="java.lang.Integer">
+        UPDATE service_crawler
+        SET crawler_id = #{crawlerId},
+            service_id = #{serviceId}
+        WHERE id = #{id};
+    </update>
+</mapper>

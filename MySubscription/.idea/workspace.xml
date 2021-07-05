@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0c179547-b59b-42a0-934b-63e833ea9ce9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/util/FileUtil.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/controller/CrawlerController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/controller/ServicesController.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../apache-maven-3.8.1" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1syDqTMfcyM3OGC7Ci05O3ncV48" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\templates\error" />
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\templates" />
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\templates\user" />
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\mybatis\mapper" />
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programmer\MyAdmin\src\main\resources\mybatis\mapper" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.lzc" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.MySubscriptionApplication">
+    <configuration name="MySubscriptionApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mysubscription" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lzc.mysubscription.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
+      <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySubscriptionApplicationTests.fileTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mysubscription" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lzc.mysubscription.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
+      <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
+      <option name="METHOD_NAME" value="fileTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySubscriptionApplicationTests.guavaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mysubscription" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lzc.mysubscription.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
+      <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
+      <option name="METHOD_NAME" value="guavaTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySubscriptionApplicationTests.md5Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mysubscription" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lzc.mysubscription.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
+      <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
+      <option name="METHOD_NAME" value="md5Test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySubscriptionApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mysubscription" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lzc.MySubscriptionApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.contextLoads" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
+      <item itemvalue="Spring Boot.MySubscriptionApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.contextLoads" />
+        <item itemvalue="Spring Boot.MySubscriptionApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c179547-b59b-42a0-934b-63e833ea9ce9" name="Default Changelist" comment="" />
+      <created>1621836128318</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621836128318</updated>
+      <workItem from="1621836133903" duration="766000" />
+      <workItem from="1621844160438" duration="13000" />
+      <workItem from="1622599625472" duration="44000" />
+      <workItem from="1623841192258" duration="93000" />
+      <workItem from="1623841921512" duration="23000" />
+      <workItem from="1623841973943" duration="217000" />
+      <workItem from="1623842231700" duration="321000" />
+      <workItem from="1623843019327" duration="182000" />
+      <workItem from="1623845898574" duration="39000" />
+      <workItem from="1623845969756" duration="204000" />
+      <workItem from="1623846197086" duration="1951000" />
+      <workItem from="1623921712886" duration="21841000" />
+      <workItem from="1623947905376" duration="12000" />
+      <workItem from="1623977210908" duration="67000" />
+      <workItem from="1623977321891" duration="50000" />
+      <workItem from="1623977398660" duration="10641000" />
+      <workItem from="1624007964789" duration="18409000" />
+      <workItem from="1624066845433" duration="422000" />
+      <workItem from="1624067299721" duration="12766000" />
+      <workItem from="1624091715586" duration="711000" />
+      <workItem from="1624092465732" duration="1705000" />
+      <workItem from="1624094378286" duration="14846000" />
+      <workItem from="1624166721081" duration="13354000" />
+      <workItem from="1624180338854" duration="23820000" />
+      <workItem from="1624242203357" duration="19000" />
+      <workItem from="1624243206048" duration="25068000" />
+      <workItem from="1624287071055" duration="1060000" />
+      <workItem from="1624341526534" duration="14306000" />
+      <workItem from="1624413352712" duration="11701000" />
+      <workItem from="1624440203591" duration="9398000" />
+      <workItem from="1624608995723" duration="503000" />
+      <workItem from="1624609532206" duration="2391000" />
+      <workItem from="1624631800631" duration="6347000" />
+      <workItem from="1624666941497" duration="26566000" />
+      <workItem from="1624720030293" duration="3977000" />
+      <workItem from="1624756851089" duration="9846000" />
+      <workItem from="1624770584953" duration="12637000" />
+      <workItem from="1624792760814" duration="17329000" />
+      <workItem from="1624842257581" duration="40343000" />
+      <workItem from="1624898467159" duration="955000" />
+      <workItem from="1624900083154" duration="262000" />
+      <workItem from="1625032178922" duration="406000" />
+      <workItem from="1625109032493" duration="591000" />
+      <workItem from="1625119583152" duration="31461000" />
+      <workItem from="1625187475708" duration="651000" />
+      <workItem from="1625189835236" duration="19103000" />
+      <workItem from="1625215669125" duration="418000" />
+      <workItem from="1625232442984" duration="334000" />
+      <workItem from="1625232873030" duration="9978000" />
+      <workItem from="1625275629167" duration="940000" />
+      <workItem from="1625277961661" duration="31319000" />
+      <workItem from="1625330798383" duration="561000" />
+      <workItem from="1625359035468" duration="36065000" />
+      <workItem from="1625415437049" duration="65000" />
+    </task>
+    <task id="LOCAL-00001" summary="新增Services文件上传类型列、输入长度配置文件LenghConfig.java">
+      <created>1624893469360</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624893469361</updated>
+    </task>
+    <task id="LOCAL-00002" summary="新增输入长度配置文件LenghConfig.java">
+      <created>1624893504022</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624893504022</updated>
+    </task>
+    <task id="LOCAL-00003" summary="CrawlerController.java 添加返回信息">
+      <created>1624895364580</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624895364580</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Crawler和Service新增”联系方式“列">
+      <created>1624898165998</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1624898165998</updated>
+    </task>
+    <task id="LOCAL-00005" summary="修复关联服务和爬虫文件的错误">
+      <created>1624899405408</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624899405408</updated>
+    </task>
+    <task id="LOCAL-00006" summary="修复关联服务和爬虫文件的错误">
+      <created>1624900309024</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1624900309024</updated>
+    </task>
+    <task id="LOCAL-00007" summary="增加tomcat缓存">
+      <created>1625127379602</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625127379602</updated>
+    </task>
+    <task id="LOCAL-00008" summary="新增服务管理功能">
+      <created>1625157015643</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1625157015643</updated>
+    </task>
+    <task id="LOCAL-00009" summary="修改数据库查询问题">
+      <created>1625157771600</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1625157771600</updated>
+    </task>
+    <task id="LOCAL-00010" summary="新增模糊搜索功能">
+      <created>1625212278647</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1625212278647</updated>
+    </task>
+    <task id="LOCAL-00011" summary="更新application.yml">
+      <created>1625232639876</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1625232639876</updated>
+    </task>
+    <task id="LOCAL-00012" summary="更新 .gitignore 文件">
+      <created>1625232734022</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1625232734022</updated>
+    </task>
+    <task id="LOCAL-00013" summary="更新 .gitignore 文件">
+      <created>1625232922276</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1625232922276</updated>
+    </task>
+    <task id="LOCAL-00014" summary="更新 .gitignore 文件">
+      <created>1625233030568</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1625233030568</updated>
+    </task>
+    <task id="LOCAL-00015" summary="target">
+      <created>1625233193663</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1625233193663</updated>
+    </task>
+    <task id="LOCAL-00016" summary="修复用户数据更改不能及时显示的问题">
+      <created>1625245605952</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1625245605952</updated>
+    </task>
+    <task id="LOCAL-00017" summary="修改 application.yml">
+      <created>1625275809669</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1625275809669</updated>
+    </task>
+    <task id="LOCAL-00018" summary="修复 500.html 错误，修复 jqgrid-copy.html 编辑框读取错误，新增 UserServiceImpl.java 整合 Redis，优化 UserMapper.xml 中 queryUsers 查询语句">
+      <created>1625330066408</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1625330066408</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="新增Services文件上传类型列、输入长度配置文件LenghConfig.java" />
+    <MESSAGE value="新增输入长度配置文件LenghConfig.java" />
+    <MESSAGE value="CrawlerController.java 添加返回信息" />
+    <MESSAGE value="Crawler和Service新增”联系方式“列" />
+    <MESSAGE value="修复关联服务和爬虫文件的错误" />
+    <MESSAGE value="增加tomcat缓存" />
+    <MESSAGE value="新增服务管理功能" />
+    <MESSAGE value="修改数据库查询问题" />
+    <MESSAGE value="新增模糊搜索功能" />
+    <MESSAGE value="更新application.yml" />
+    <MESSAGE value="更新 .gitignore 文件" />
+    <MESSAGE value="target" />
+    <MESSAGE value="修复用户数据更改不能及时显示的问题" />
+    <MESSAGE value="修改 application.yml" />
+    <MESSAGE value="修复 500.html 错误，修复 jqgrid-copy.html 编辑框读取错误，新增 UserServiceImpl.java 整合 Redis，优化 UserMapper.xml 中 queryUsers 查询语句" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复 500.html 错误，修复 jqgrid-copy.html 编辑框读取错误，新增 UserServiceImpl.java 整合 Redis，优化 UserMapper.xml 中 queryUsers 查询语句" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.alibaba.fastjson.JSONException" package="com.alibaba.fastjson" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

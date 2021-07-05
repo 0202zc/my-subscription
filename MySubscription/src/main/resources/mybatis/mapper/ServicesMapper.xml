@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzc.mapper.ServicesMapper">
+    <resultMap id="ServicesMap" type="com.lzc.pojo.Services">
+        <result column="service_name" property="serviceName"/>
+        <result column="service_type" property="serviceType"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryServices" resultType="Services" resultMap="ServicesMap">
+        SELECT id,
+               service_name,
+               note,
+               email,
+               enabled,
+               service_type,
+               gmt_create,
+               gmt_modified
+        FROM services;
+    </select>
+
+    <select id="queryEnabledServices" resultType="Services" resultMap="ServicesMap">
+        SELECT id,
+               service_name,
+               note,
+               email,
+               enabled,
+               service_type,
+               gmt_create,
+               gmt_modified
+        FROM services
+        WHERE enabled = 1;
+    </select>
+
+    <select id="queryServicesWithCrawlers" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT s.id,
+        service_name as `serviceName`,
+        note,
+        s.email,
+        s.enabled,
+        service_type as `serviceType`,
+        s.gmt_create as `gmtCreate`,
+        sc.crawler_id as `crawlerId`,
+        c.crawler_name as `crawlerName`,
+        count(distinct s2.user_id) as `count`
+        FROM services s
+        left join service_crawler sc on s.id = sc.service_id
+        left join crawlers c on sc.crawler_id = c.id
+        left join subscription s2 on s.id = s2.service_id
+        <if test="sSearch != null and sSearch != ''">
+            where s.service_name like concat('%', #{sSearch}, '%') or s.note like concat('%', #{sSearch}, '%')
+        </if>
+        group by s.id;
+    </select>
+
+    <select id="querySubsCount" resultType="java.util.Map">
+        SELECT service_id as `serviceId`, count(DISTINCT user_id) as `count`
+        FROM subscription
+        GROUP BY service_id;
+    </select>
+
+    <select id="queryServicesById" parameterType="java.lang.Integer" resultType="Services" resultMap="ServicesMap">
+        SELECT id,
+               service_name,
+               note,
+               email,
+               enabled,
+               service_type,
+               gmt_create,
+               gmt_modified
+        FROM services
+        WHERE id = #{id};
+    </select>
+
+    <select id="queryServicesByName" parameterType="java.lang.String" resultType="Services" resultMap="ServicesMap">
+        SELECT id,
+               service_name,
+               note,
+               email,
+               enabled,
+               service_type,
+               gmt_create,
+               gmt_modified
+        FROM services
+        WHERE service_name = #{serviceName};
+    </select>
+
+    <delete id="deleteService" parameterType="Services">
+        DELETE
+        FROM services
+        WHERE id = #{id};
+    </delete>
+
+    <insert id="addService" statementType="CALLABLE" parameterType="java.util.Map">
+        {CALL proc_addService(
+                #{serviceName, mode=IN, jdbcType=VARCHAR},
+                #{note, mode=IN, jdbcType=VARCHAR},
+                #{email, mode=IN, jdbcType=VARCHAR},
+                #{enabled, mode=IN, jdbcType=TINYINT},
+                #{id, mode=OUT, jdbcType=BIGINT}
+            )}
+    </insert>
+
+    <update id="updateService" parameterType="Services">
+        UPDATE services
+        SET service_name = #{serviceName},
+            note         = #{note}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateServiceStatus" parameterType="java.lang.Integer">
+        UPDATE services
+        SET enabled =
+                case enabled
+                    when 0 then 1
+                    when 1 then 0
+                    end
+        WHERE id = #{id};
+    </update>
+</mapper>

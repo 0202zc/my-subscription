@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzc.mapper.UserMapper">
+    <resultMap id="UserMap" type="com.lzc.pojo.User">
+        <result column="user_name" property="userName"/>
+        <result column="is_allowed" property="isAllowed"/>
+        <result column="gmt_create" property="registration"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryUsers" resultType="User" parameterType="User" resultMap="UserMap">
+        select id, user_name, email, is_allowed, role, gmt_create, gmt_modified
+        from users
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="userName != null">
+                and user_name = #{userName}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+            <if test="isAllowed != null">
+                and is_allowed = #{isAllowed}
+            </if>
+            <if test="role != null">
+                and role = #{role}
+            </if>
+        </where>;
+    </select>
+    <select id="queryUser" resultType="User" parameterType="User" resultMap="UserMap">
+        select id, user_name, email, is_allowed, role, gmt_create
+        from users
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+        </where>;
+    </select>
+    <select id="queryUserById" resultType="User" parameterType="java.lang.Integer" resultMap="UserMap">
+        select id, user_name, email, is_allowed, role, gmt_create
+        from users
+        where id = #{userId};
+    </select>
+    <select id="queryAllowEmails" resultType="java.lang.String" parameterType="User" resultMap="UserMap">
+        select email
+        from users
+        where email = #{email}
+          and is_allowed = 1;
+    </select>
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users(user_name, email, is_allowed, role)
+        VALUES (#{userName}, #{email}, #{isAllowed}, #{role});
+    </insert>
+    <delete id="deleteUser" parameterType="User">
+        DELETE
+        FROM users
+        WHERE id = #{id};
+    </delete>
+    <update id="updateUser" parameterType="User">
+        UPDATE users
+        SET user_name  = #{userName},
+            email      = #{email},
+            is_allowed = #{isAllowed},
+            role       = #{role}
+        where id = #{id};
+    </update>
+
+    <delete id="deleteUserByEmail" parameterType="java.lang.String">
+        DELETE
+        FROM users
+        WHERE email = #{email};
+    </delete>
+    <select id="queryUserByEmail" resultType="User" parameterType="java.lang.String" resultMap="UserMap">
+        select id, user_name, email, is_allowed, role, gmt_create
+        from users
+        where email = #{email};
+    </select>
+    <update id="updateUserEmail" parameterType="java.lang.String">
+        UPDATE users
+        SET email = #{newEmail}
+        where email = #{oldEmail};
+    </update>
+</mapper>

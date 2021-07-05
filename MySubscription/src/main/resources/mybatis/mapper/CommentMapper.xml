@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzc.mapper.CommentMapper">
+    <resultMap id="CommentMap" type="com.lzc.pojo.Comment">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="note" property="note"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryAllComments" resultMap="CommentMap">
+        select id, user_id, note, gmt_create, gmt_modified
+        from comments;
+    </select>
+    <select id="queryCommentsByUserId" resultMap="CommentMap" parameterType="java.lang.Integer">
+        select id, user_id, note, gmt_create, gmt_modified
+        from comments
+        where user_id = #{userId};
+    </select>
+    <select id="queryCommentsByEmail" resultMap="CommentMap" parameterType="java.lang.String">
+        select id, user_id, note, gmt_create, gmt_modified
+        from comments
+        where user_id = (
+            select id
+            from users
+            where email = #{email}
+        );
+    </select>
+    <select id="queryCommentById" resultMap="CommentMap" parameterType="java.lang.Integer">
+        select id, user_id, note, gmt_create, gmt_modified
+        from comments
+        where id = #{commentId};
+    </select>
+    <insert id="addComment" parameterType="com.lzc.pojo.Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into comments(user_id, note)
+        values (#{userId}, #{note});
+    </insert>
+    <delete id="deleteComment" parameterType="java.lang.Integer">
+        delete
+        from comments
+        where id = #{commentId};
+    </delete>
+    <update id="updateComment" parameterType="Comment">
+        update comments
+        set note  = #{note},
+            user_id = #{userId}
+        where id = #{commentId};
+    </update>
+    <delete id="deleteCommentByUserId" parameterType="java.lang.Integer">
+        DELETE
+        FROM comments
+        WHERE user_id = #{userId};
+    </delete>
+</mapper>
