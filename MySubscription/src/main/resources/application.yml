@@ -13,7 +13,7 @@ spring:
       date-time: yyyy-MM-dd HH:mm:ss
   datasource:
     username: root
-    password: adobe197341022
+    password: root
     #?serverTimezone=UTC解决时区的报错
     url: jdbc:mysql://localhost:3306/db_mail_send?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
