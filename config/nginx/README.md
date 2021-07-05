@@ -4,3 +4,4 @@
 
 - Nginx 配置文件路径 `conf/nginx.conf`
 
+- icon 图标文件路径 `html/images/favicon.icon`
