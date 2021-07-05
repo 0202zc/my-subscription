@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzc.mapper.ServicesMapper">
-    <resultMap id="ServicesMap" type="com.lzc.pojo.Services">
+    <resultMap id="ServicesMap" type="com.lzc.pojo.ServiceDO">
         <result column="service_name" property="serviceName"/>
         <result column="service_type" property="serviceType"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
-    <select id="queryServices" resultType="Services" resultMap="ServicesMap">
+    <select id="queryServices" resultType="ServiceDO" resultMap="ServicesMap">
         SELECT id,
                service_name,
                note,
@@ -22,7 +22,7 @@
         FROM services;
     </select>
 
-    <select id="queryEnabledServices" resultType="Services" resultMap="ServicesMap">
+    <select id="queryEnabledServices" resultType="ServiceDO" resultMap="ServicesMap">
         SELECT id,
                service_name,
                note,
@@ -56,13 +56,13 @@
         group by s.id;
     </select>
 
-    <select id="querySubsCount" resultType="java.util.Map">
+    <select id="countSubscription" resultType="java.util.Map">
         SELECT service_id as `serviceId`, count(DISTINCT user_id) as `count`
         FROM subscription
         GROUP BY service_id;
     </select>
 
-    <select id="queryServicesById" parameterType="java.lang.Integer" resultType="Services" resultMap="ServicesMap">
+    <select id="queryServicesById" parameterType="java.lang.Integer" resultType="ServiceDO" resultMap="ServicesMap">
         SELECT id,
                service_name,
                note,
@@ -75,7 +75,7 @@
         WHERE id = #{id};
     </select>
 
-    <select id="queryServicesByName" parameterType="java.lang.String" resultType="Services" resultMap="ServicesMap">
+    <select id="queryServicesByName" parameterType="java.lang.String" resultType="ServiceDO" resultMap="ServicesMap">
         SELECT id,
                service_name,
                note,
@@ -88,7 +88,7 @@
         WHERE service_name = #{serviceName};
     </select>
 
-    <delete id="deleteService" parameterType="Services">
+    <delete id="deleteService" parameterType="ServiceDO">
         DELETE
         FROM services
         WHERE id = #{id};
@@ -104,7 +104,7 @@
             )}
     </insert>
 
-    <update id="updateService" parameterType="Services">
+    <update id="updateService" parameterType="ServiceDO">
         UPDATE services
         SET service_name = #{serviceName},
             note         = #{note}

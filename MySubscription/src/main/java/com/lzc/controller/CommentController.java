@@ -1,11 +1,9 @@
 package com.lzc.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lzc.pojo.Comment;
+import com.lzc.pojo.CommentDO;
 import com.lzc.service.CommentService;
-import com.lzc.util.JsonUtil;
-import org.checkerframework.checker.units.qual.C;
+import com.lzc.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,75 +25,75 @@ public class CommentController {
 
     @GetMapping("/queryAllComments")
     public String queryAllComments(HttpServletResponse response) {
-        List<Comment> comments = commentService.queryAllComments();
+        List<CommentDO> comments = commentService.queryAllComments();
         if (comments == null) {
-            return JsonUtil.toJsonString(response.getStatus(), "fail");
+            return JsonUtils.toJsonString(response.getStatus(), JsonUtils.FAIL_STRING);
         } else {
-            return JsonUtil.toJsonString(response.getStatus(), "success", comments);
+            return JsonUtils.toJsonString(response.getStatus(), JsonUtils.SUCCESS_STRING, comments);
         }
     }
 
     @GetMapping("/queryCommentsByUserId")
     public String queryCommentsByUserId(HttpServletResponse response, @RequestParam("userId") Integer userId) {
-        List<Comment> comments = commentService.queryCommentsByUserId(userId);
+        List<CommentDO> comments = commentService.queryCommentsByUserId(userId);
         if (comments == null) {
-            return JsonUtil.toJsonString(response.getStatus(), "未查询到数据");
+            return JsonUtils.toJsonString(response.getStatus(), "未查询到数据");
         } else {
-            return JsonUtil.toJsonString(response.getStatus(), "success", comments);
+            return JsonUtils.toJsonString(response.getStatus(), JsonUtils.SUCCESS_STRING, comments);
         }
     }
 
     @GetMapping("/queryCommentsByEmail")
     public String queryCommentsByEmail(HttpServletResponse response, @RequestParam("email") String email) {
-        List<Comment> comments = commentService.queryCommentsByEmail(email);
+        List<CommentDO> comments = commentService.queryCommentsByEmail(email);
         if (comments == null) {
-            return JsonUtil.toJsonString(response.getStatus(), "未查询到数据");
+            return JsonUtils.toJsonString(response.getStatus(), "未查询到数据");
         } else {
-            return JsonUtil.toJsonString(response.getStatus(), "success", comments);
+            return JsonUtils.toJsonString(response.getStatus(), JsonUtils.SUCCESS_STRING, comments);
         }
     }
 
     @GetMapping("/queryCommentById")
     public String queryCommentById(HttpServletResponse response, @RequestParam("id") Integer id) {
-        Comment comment = commentService.queryCommentById(id);
+        CommentDO comment = commentService.queryCommentById(id);
         if (comment == null) {
-            return JsonUtil.toJsonString(response.getStatus(), "未查询到数据");
+            return JsonUtils.toJsonString(response.getStatus(), "未查询到数据");
         } else {
             JSONObject data = new JSONObject();
             data.put(String.valueOf(id), comment);
-            return JsonUtil.toJsonString(response.getStatus(), "success", data);
+            return JsonUtils.toJsonString(response.getStatus(), JsonUtils.SUCCESS_STRING, data);
         }
     }
 
     @PostMapping("/addCommentByUserId")
     public String addComment(HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("note") String note) {
-        Comment comment = new Comment(userId, note);
-        String msg = commentService.addComment(comment) == 1 ? "success" : "fail";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        CommentDO comment = new CommentDO(userId, note);
+        String msg = commentService.addComment(comment) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @PostMapping("/addCommentByEmail")
     public String addComment(HttpServletResponse response, @RequestParam("email") String email, @RequestParam("note") String note) {
-        String msg = commentService.addComment(email, note) == null ? "fail" : "success";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = commentService.addComment(email, note) == null ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @PostMapping("/deleteComment")
     public String deleteComment(HttpServletResponse response, @RequestParam("id") Integer id) {
-        String msg = commentService.deleteComment(id) == 0 ? "fail" : "success";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = commentService.deleteComment(id) == 0 ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @PostMapping("/updateComment")
     public String updateComment(HttpServletResponse response, @RequestParam("id") Integer id, @RequestParam("userId") Integer userId, @RequestParam("note") String note) {
-        String msg = commentService.updateComment(new Comment(id, userId, note)) == 0 ? "fail" : "success";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = commentService.updateComment(new CommentDO(id, userId, note)) == 0 ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @PostMapping("/deleteCommentByUserId")
     public String deleteCommentByUserId(HttpServletResponse response, @RequestParam("userId") Integer userId) {
-        String msg = commentService.deleteCommentByUserId(userId) == 0 ? "fail" : "success";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = commentService.deleteCommentByUserId(userId) == 0 ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
 

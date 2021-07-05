@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzc.mapper.SubscriptionMapper">
-    <resultMap id="SubscriptionMap" type="com.lzc.pojo.Subscription">
+    <resultMap id="SubscriptionMap" type="com.lzc.pojo.SubscriptionDO">
         <result column="user_id" property="userId"/>
         <result column="service_id" property="serviceId"/>
         <result column="send_time" property="sendTime"/>
@@ -12,16 +12,16 @@
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
-    <select id="queryAllSubscriptions" resultType="Subscription" resultMap="SubscriptionMap">
+    <select id="queryAllSubscriptions" resultType="SubscriptionDO" resultMap="SubscriptionMap">
         select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
         from subscription;
     </select>
-    <select id="querySubscription" parameterType="Subscription" resultType="Subscription" resultMap="SubscriptionMap">
+    <select id="querySubscription" parameterType="SubscriptionDO" resultType="SubscriptionDO" resultMap="SubscriptionMap">
         select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
         from subscription
         where user_id = #{userId} and service_id = #{serviceId} and send_time = #{sendTime};
     </select>
-    <select id="querySubscriptionsByEmail" resultType="Subscription" parameterType="java.lang.String"
+    <select id="querySubscriptionsByEmail" resultType="SubscriptionDO" parameterType="java.lang.String"
             resultMap="SubscriptionMap">
         select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
         from subscription
@@ -31,19 +31,19 @@
             where email = #{email}
         );
     </select>
-    <select id="querySubscriptionsByUserId" resultType="Subscription" parameterType="java.lang.Integer"
+    <select id="querySubscriptionsByUserId" resultType="SubscriptionDO" parameterType="java.lang.Integer"
             resultMap="SubscriptionMap">
         select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
         from subscription
         where user_id = #{userId};
     </select>
-    <select id="querySubscriptionById" resultType="Subscription" parameterType="java.lang.Integer"
+    <select id="querySubscriptionById" resultType="SubscriptionDO" parameterType="java.lang.Integer"
             resultMap="SubscriptionMap">
         select id, user_id, service_id, send_time, allow_send, gmt_create, gmt_modified
         from subscription
         where id = #{id};
     </select>
-    <insert id="insertSubscription" parameterType="Subscription" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertSubscription" parameterType="SubscriptionDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO subscription(user_id, service_id, send_time, allow_send)
         VALUES (#{userId}, #{serviceId}, #{sendTime}, #{allowSend});
     </insert>

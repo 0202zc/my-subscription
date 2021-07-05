@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User implements Serializable {
+public class UserDO implements Serializable {
 
     private static final long serialVersionUID = -3650359202461551649L;
 
@@ -32,11 +32,11 @@ public class User implements Serializable {
     private String registration;
     private String gmtModified;
 
-    public User(Integer id) {
+    public UserDO(Integer id) {
         this.id = id;
     }
 
-    public User(Integer id, String userName, String email, Integer isAllowed, Integer role) {
+    public UserDO(Integer id, String userName, String email, Integer isAllowed, Integer role) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -44,7 +44,7 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public User(String userName, String email, Integer isAllowed, Integer role) {
+    public UserDO(String userName, String email, Integer isAllowed, Integer role) {
         this.userName = userName;
         this.email = email;
         this.isAllowed = isAllowed;
@@ -72,7 +72,7 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
+        UserDO user = (UserDO) o;
         return Objects.equal(id, user.id) && Objects.equal(userName, user.userName) && Objects.equal(email, user.email) && Objects.equal(isAllowed, user.isAllowed) && Objects.equal(role, user.role) && Objects.equal(registration, user.registration) && Objects.equal(gmtModified, user.gmtModified);
     }
 

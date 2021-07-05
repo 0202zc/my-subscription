@@ -2,14 +2,11 @@ package com.lzc.service.impl;
 
 import com.lzc.mapper.SubscriptionMapper;
 import com.lzc.mapper.UserMapper;
-import com.lzc.pojo.Subscription;
-import com.lzc.pojo.User;
+import com.lzc.pojo.SubscriptionDO;
+import com.lzc.pojo.UserDO;
 import com.lzc.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -29,36 +26,32 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private UserMapper userMapper;
 
     @Override
-    public List<Subscription> queryAllSubscriptions() {
+    public List<SubscriptionDO> queryAllSubscriptions() {
         return subscriptionMapper.queryAllSubscriptions();
     }
 
     @Override
-//    @Cacheable(key = "#subscription.id", condition = "null ne #subscription and null ne #subscription.id and #subscription.id > 0", unless = "null eq #result")
-    public Subscription querySubscription(Subscription subscription) {
+    public SubscriptionDO querySubscription(SubscriptionDO subscription) {
         return subscriptionMapper.querySubscription(subscription);
     }
 
     @Override
-//    @Cacheable(key = "#email", unless = "null eq #result")
-    public List<Subscription> querySubscriptionsByEmail(String email) {
+    public List<SubscriptionDO> querySubscriptionsByEmail(String email) {
         return subscriptionMapper.querySubscriptionsByEmail(email);
     }
 
     @Override
-//    @Cacheable(value = "user_subs", key = "#userId", unless = "null eq #result")
-    public List<Subscription> querySubscriptionsByUserId(Integer userId) {
+    public List<SubscriptionDO> querySubscriptionsByUserId(Integer userId) {
         return subscriptionMapper.querySubscriptionsByUserId(userId);
     }
 
     @Override
-//    @CachePut(key = "#subscription.id", unless = "null eq #result and null eq subscription.id and 0 eq #result")
-    public Integer insertSubscription(Subscription subscription, String userName, String email) {
+    public Integer insertSubscription(SubscriptionDO subscription, String userName, String email) {
         // 查询该邮箱是否已经注册
-        User user = userMapper.queryUserByEmail(email);
+        UserDO user = userMapper.queryUserByEmail(email);
         if (user == null) {
             // 没注册就注册
-            user = new User();
+            user = new UserDO();
             user.setUserName(userName);
             user.setEmail(email);
             user.setRole(1);
@@ -67,7 +60,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         } else {
             // 查询是否存在该订阅
             subscription.setUserId(user.getId());
-            Subscription validSub = subscriptionMapper.querySubscription(subscription);
+            SubscriptionDO validSub = subscriptionMapper.querySubscription(subscription);
             if (validSub != null) {
                 subscription.setId(validSub.getId());
                 if (validSub.getAllowSend().equals(subscription.getAllowSend())) {
@@ -90,13 +83,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-//    @CacheEvict(key = "#result", condition = "0 ne #result")
     public Integer deleteSubscription(String email, Integer serviceId, String sendTime) {
-        User user = userMapper.queryUserByEmail(email);
+        UserDO user = userMapper.queryUserByEmail(email);
         if (user == null) {
             return 0;
         }
-        Subscription subs = subscriptionMapper.querySubscription(new Subscription(user.getId(), serviceId, sendTime));
+        SubscriptionDO subs = subscriptionMapper.querySubscription(new SubscriptionDO(user.getId(), serviceId, sendTime));
         if (subs == null) {
             return 0;
         } else {
@@ -105,13 +97,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-//    @CachePut(key = "#result", unless = "0 eq #result")
     public Integer updateSubscription(String oldEmail, Integer oldServiceId, String oldSendTime, Integer newServiceId, String newSendTime, Integer allowSend, String newEmail) {
-        User user = userMapper.queryUserByEmail(oldEmail);
+        UserDO user = userMapper.queryUserByEmail(oldEmail);
         if (user == null || oldEmail == null || oldEmail.trim().length() == 0) {
             return 0;
         }
-        Subscription subs = subscriptionMapper.querySubscription(new Subscription(user.getId(), oldServiceId, oldSendTime));
+        SubscriptionDO subs = subscriptionMapper.querySubscription(new SubscriptionDO(user.getId(), oldServiceId, oldSendTime));
         // 如果用户更改了邮箱
         if (!oldEmail.equals(newEmail)) {
             userMapper.updateUserEmail(oldEmail, newEmail);
@@ -121,14 +112,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-//    @CachePut(key = "#id", unless = "0 eq #result")
     public Integer updateSubsState(Integer id) {
         Integer newState = subscriptionMapper.querySubscriptionById(id).getAllowSend() == 0 ? 1 : 0;
         return subscriptionMapper.updateSubsState(id, newState);
     }
 
     @Override
-//    @CacheEvict(value = "user_subs", key = "#userId")
     public Integer deleteSubscriptionByUserId(Integer userId) {
         return subscriptionMapper.deleteSubscriptionByUserId(userId);
     }
@@ -136,7 +125,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     /**
      * SimpleDateFormat 是线程不安全的类，一般不要定义为static变量
      */
-    private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() {
+    private static final ThreadLocal<DateFormat> DATE_FORMAT_THREAD_LOCAL = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

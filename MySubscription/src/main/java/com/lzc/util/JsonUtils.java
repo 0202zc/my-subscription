@@ -3,7 +3,6 @@ package com.lzc.util;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,31 +13,36 @@ import java.util.regex.Pattern;
  * @description 该类为 JSON 辅助类，返回格式化后的 JSON 串
  */
 @Component
-public final class JsonUtil {
+public final class JsonUtils {
 
     private static final String STATUE_KEY = "status";
     private static final String MESSAGE_KEY = "message";
     private static final String DATA_KEY = "data";
+    private static final Pattern PATTERN = Pattern.compile("[0-9]+");
+
+    public static final String SUCCESS_STRING = "success";
+    public static final String FAIL_STRING = "fail";
+    public static final String TRUE_STRING = "true";
+    public static final String FALSE_STRING = "false";
 
     /**
-     * @description 判断是不是数字
      * @param str 输入字符串
      * @return boolean
+     * @description 判断是不是数字
      */
     public static boolean isNumeric(String str) {
         if (str == null || str.length() == 0) {
-            return false;
+            return true;
         }
-        Pattern pattern = Pattern.compile("[0-9]+");
-        Matcher isNum = pattern.matcher(str);
-        return isNum.matches();
+        Matcher isNum = PATTERN.matcher(str);
+        return !isNum.matches();
     }
 
     /**
-     * @description 当不需要返回data时用该方法
-     * @param status
-     * @param message
+     * @param status statusCode
+     * @param message 信息
      * @return JSONString
+     * @description 当不需要返回data时用该方法
      */
     public static String toJsonString(Integer status, String message) {
         JSONObject jsonObject = new JSONObject();

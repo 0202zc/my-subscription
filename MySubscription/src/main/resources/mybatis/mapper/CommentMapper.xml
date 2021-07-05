@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzc.mapper.CommentMapper">
-    <resultMap id="CommentMap" type="com.lzc.pojo.Comment">
+    <resultMap id="CommentMap" type="com.lzc.pojo.CommentDO">
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="note" property="note"/>
@@ -34,7 +34,7 @@
         from comments
         where id = #{commentId};
     </select>
-    <insert id="addComment" parameterType="com.lzc.pojo.Comment" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addComment" parameterType="com.lzc.pojo.CommentDO" useGeneratedKeys="true" keyProperty="id">
         insert into comments(user_id, note)
         values (#{userId}, #{note});
     </insert>
@@ -43,7 +43,7 @@
         from comments
         where id = #{commentId};
     </delete>
-    <update id="updateComment" parameterType="Comment">
+    <update id="updateComment" parameterType="com.lzc.pojo.CommentDO">
         update comments
         set note  = #{note},
             user_id = #{userId}

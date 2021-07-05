@@ -2,15 +2,14 @@ package com.lzc.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lzc.pojo.Services;
+import com.lzc.pojo.ServiceDO;
 import com.lzc.service.ServicesService;
-import com.lzc.util.JsonUtil;
+import com.lzc.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Liang Zhancheng
@@ -23,7 +22,7 @@ public class ServicesController {
 
     @GetMapping("/queryServices")
     public String queryServices(Integer enabled) {
-        List<Services> services = (enabled == null ? servicesService.queryServices() : servicesService.queryEnabledServices());
+        List<ServiceDO> services = (enabled == null ? servicesService.queryServices() : servicesService.queryEnabledServices());
         return JSON.toJSONString(services);
     }
 
@@ -38,13 +37,13 @@ public class ServicesController {
             data.put("sEcho", 3);
             data.put("iTotalRecords", list.size());
             data.put("iTotalDisplayRecords", list.size());
-            msg = "success";
+            msg = JsonUtils.SUCCESS_STRING;
             return JSON.toJSONString(data);
         } catch (Exception ignored) {
-            msg = "fail";
+            msg = JsonUtils.FAIL_STRING;
             System.out.println(ignored);
         }
-        return JsonUtil.toJsonString(response.getStatus(), msg, data);
+        return JsonUtils.toJsonString(response.getStatus(), msg, data);
     }
 
     @GetMapping("/queryServicesById")
@@ -54,37 +53,37 @@ public class ServicesController {
 
     @PostMapping("/addService")
     public String addService(@RequestParam("serviceName") String serviceName, @RequestParam("note") String note, @RequestParam("email") String email) {
-        Services service = new Services(serviceName, note, email, 1);
-        return servicesService.addService(service) != null ? "success" : "fail";
+        ServiceDO service = new ServiceDO(serviceName, note, email, 1);
+        return servicesService.addService(service) != null ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
     }
 
     @PostMapping("/deleteService")
     public String deleteService(HttpServletResponse response, @RequestParam("serviceId") Integer serviceId) {
-        String msg = servicesService.deleteService(new Services(serviceId)) == 1 ? "success" : "fail";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = servicesService.deleteService(new ServiceDO(serviceId)) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @PostMapping("/updateService")
     public String updateService(@RequestParam("serviceId") Integer serviceId, @RequestParam("serviceName") String serviceName, @RequestParam("note") String note) {
-        Services service = new Services(serviceId, serviceName, note);
-        return servicesService.updateService(service) != null ? "success" : "fail";
+        ServiceDO service = new ServiceDO(serviceId, serviceName, note);
+        return servicesService.updateService(service) != null ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
     }
 
     @PostMapping("/updateServiceStatus")
     public String updateServiceStatus(HttpServletResponse response, @RequestParam("serviceId") Integer serviceId) {
-        String msg = servicesService.updateServiceStatus(serviceId) != null ? "success" : "fail";
-        return JsonUtil.toJsonString(response.getStatus(), msg);
+        String msg = servicesService.updateServiceStatus(serviceId) != null ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
+        return JsonUtils.toJsonString(response.getStatus(), msg);
     }
 
     @GetMapping("/validServiceName/{serviceName}")
     public String validServiceName(HttpServletResponse response, @PathVariable("serviceName") String serviceName) {
         JSONObject data = new JSONObject();
         data.put("res", servicesService.queryServicesByName(serviceName) == null);
-        return JsonUtil.toJsonString(response.getStatus(), "success", data);
+        return JsonUtils.toJsonString(response.getStatus(), JsonUtils.SUCCESS_STRING, data);
     }
 
     @PostMapping("/validServiceName")
     public String validServiceName1(HttpServletResponse response, @RequestParam("serviceName") String serviceName) {
-        return servicesService.queryServicesByName(serviceName) == null ? "true" : "false";
+        return servicesService.queryServicesByName(serviceName) == null ? JsonUtils.TRUE_STRING : JsonUtils.FAIL_STRING;
     }
 }

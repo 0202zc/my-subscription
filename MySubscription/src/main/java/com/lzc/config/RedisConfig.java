@@ -4,6 +4,7 @@ import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -33,11 +34,11 @@ import java.util.stream.Collectors;
 /**
  * @author zjjlive
  * @date 2019/2/22 15:20
- * @Description redis配置类
+ * @description redis配置类
  * @ModifiedBy Liang Zhancheng
  */
 @Configuration
-@EnableCaching //开启缓存
+@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Autowired
@@ -46,8 +47,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     /**
      * retemplate相关配置
      *
-     * @param factory
-     * @return
+     * @param factory RedisConnectionFactory
+     * @return RedisTemplate<String, Object>
      */
     @Bean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
@@ -55,14 +56,14 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         // 配置连接工厂
         template.setConnectionFactory(factory);
-        FastJson2JsonRedisSerializer serializer = new FastJson2JsonRedisSerializer(Object.class);
+        FastJson2JsonRedisSerializer<Object> serializer = new FastJson2JsonRedisSerializer<>(Object.class);
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         // 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会跑出异常
-        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        serializer.setObjectMapper(mapper);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        serializer.setObjectMapper(objectMapper);
 
         // 值采用json序列化
         template.setValueSerializer(serializer);
@@ -92,8 +93,10 @@ public class RedisConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         return new RedisCacheManager(
                 RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
-                this.getRedisCacheConfigurationWithTtl(30 * 60), // 默认策略，未配置的 key 会使用这个
-                this.getRedisCacheConfigurationMap() // 指定 key 策略
+                // 默认策略，未配置的 key 会使用这个
+                this.getRedisCacheConfigurationWithTtl(30 * 60),
+                // 指定 key 策略
+                this.getRedisCacheConfigurationMap()
         );
     }
 
@@ -102,22 +105,20 @@ public class RedisConfig extends CachingConfigurerSupport {
      * @return
      */
     private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
-        Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
+        Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>(3);
         // 过期时间配置
         redisCacheConfigurationMap.put("user", this.getRedisCacheConfigurationWithTtl(20 * 60));
         redisCacheConfigurationMap.put("service", this.getRedisCacheConfigurationWithTtl(20 * 60));
         redisCacheConfigurationMap.put("crawler", this.getRedisCacheConfigurationWithTtl(20 * 60));
-//        redisCacheConfigurationMap.put("subscribe", this.getRedisCacheConfigurationWithTtl(20 * 60));
-//        redisCacheConfigurationMap.put("comment", this.getRedisCacheConfigurationWithTtl(20 * 60));
         return redisCacheConfigurationMap;
     }
 
     private RedisCacheConfiguration getRedisCacheConfigurationWithTtl(Integer seconds) {
         FastJson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new FastJson2JsonRedisSerializer<>(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
         redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(

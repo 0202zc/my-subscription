@@ -19,11 +19,17 @@ import java.util.function.Consumer;
 @Data
 public class FileFinder {
 
-    // 要查找的文件目录
+    /**
+     * 要查找的文件目录
+     */
     private String path;
-    // 在文件目录下发现文件时的监听器（即一发现文件就会被这个类监听到）
+    /**
+     * 在文件目录下发现文件时的监听器（即一发现文件就会被这个类监听到）
+     */
     private List<Consumer<File>> fileFoundListener;
-    // 文件过滤规则
+    /**
+     * 文件过滤规则
+     */
     private List<FileFilter> ignoreFilters;
 
     private FileFinder() {
@@ -150,8 +156,10 @@ public class FileFinder {
         // 这样写的好处在于、足够灵活、可以添加任意监听器来检测扫描过程，可以动态添加过滤规则。
         List<File> list = FileFinder.getInstance("E:\\FileTestDic")
                 .registerFileFountListener(f -> System.out.println("[监听器]监听到新文件:" + f.getName() + ",他的父级目录是:" + f.getParent()))
-                .addFileIgnore(f -> f.getName().endsWith(".jpg"))               // 滤除所有.jpg文件
-                .addFileIgnore(f -> f.isDirectory() && f.getName().equals("1")) // 滤除1文件夹下的所有文件
+                // 滤除所有.jpg文件
+                .addFileIgnore(f -> f.getName().endsWith(".jpg"))
+                // 滤除1文件夹下的所有文件
+                .addFileIgnore(f -> f.isDirectory() && "1".equals(f.getName()))
                 .doFind();
 
         System.out.println("\n文件扫描完成,下面打印\n");

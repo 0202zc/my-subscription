@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c179547-b59b-42a0-934b-63e833ea9ce9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/CrawlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/CrawlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/RedisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/RedisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/ServicesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/ServicesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/SubscriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/SubscriptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/CommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/CrawlerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/CrawlerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/ServicesMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/ServicesMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/SubscriptionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/SubscriptionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/CommentDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/CrawlerDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/ServiceDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/Subscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/SubscriptionDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/pojo/UserDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/CrawlerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/CrawlerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/ServicesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/ServicesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/SubscriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/SubscriptionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/CommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/CrawlerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/CrawlerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/ServicesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/ServicesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/SubscriptionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/SubscriptionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/util/FileFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/util/FileFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/util/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/util/JsonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/util/JsonUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/util/RedisUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/util/RedisUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/CommentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/CommentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/CrawlerMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/CrawlerMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/ServicesMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/ServicesMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/SubscriptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/SubscriptionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/lzc/mysubscription/MySubscriptionApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/lzc/mysubscription/MySubscriptionApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +76,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/util/FileUtil.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/util/FileUtils.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/controller/CrawlerController.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/lzc/controller/ServicesController.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -44,6 +84,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHome" value="$PROJECT_DIR$/../../../apache-maven-3.8.1" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.8.1\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -99,6 +140,17 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.MySubscriptionApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MySubscriptionApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mysubscription" />
       <extension name="coverage">
@@ -110,6 +162,22 @@
       <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
       <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
       <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MySubscriptionApplicationTests.enumTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mysubscription" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lzc.mysubscription.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lzc.mysubscription" />
+      <option name="MAIN_CLASS_NAME" value="com.lzc.mysubscription.MySubscriptionApplicationTests" />
+      <option name="METHOD_NAME" value="enumTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -180,14 +248,15 @@
       <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
       <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
       <item itemvalue="Spring Boot.MySubscriptionApplication" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.enumTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.enumTest" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.contextLoads" />
-        <item itemvalue="Spring Boot.MySubscriptionApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -255,6 +324,13 @@
       <workItem from="1625415437049" duration="65000" />
       <workItem from="1625452608824" duration="308000" />
       <workItem from="1625453552196" duration="145000" />
+      <workItem from="1625454131354" duration="36000" />
+      <workItem from="1625456329848" duration="115000" />
+      <workItem from="1625464115049" duration="889000" />
+      <workItem from="1625465993963" duration="642000" />
+      <workItem from="1625466671157" duration="669000" />
+      <workItem from="1625476216282" duration="428000" />
+      <workItem from="1625482816250" duration="9080000" />
     </task>
     <task id="LOCAL-00001" summary="新增Services文件上传类型列、输入长度配置文件LenghConfig.java">
       <created>1624893469360</created>

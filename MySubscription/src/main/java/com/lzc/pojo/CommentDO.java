@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Comment implements Serializable {
+public class CommentDO implements Serializable {
 
     private static final long serialVersionUID = -8869222996582667606L;
 
@@ -24,13 +24,13 @@ public class Comment implements Serializable {
     private String gmtCreate;
     private String gmtModified;
 
-    public Comment(Integer id, Integer userId, String note) {
+    public CommentDO(Integer id, Integer userId, String note) {
         this.id = id;
         this.userId = userId;
         this.note = note;
     }
 
-    public Comment(Integer userId, String note) {
+    public CommentDO(Integer userId, String note) {
         this.userId = userId;
         this.note = note;
     }
@@ -43,7 +43,7 @@ public class Comment implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Comment comment = (Comment) o;
+        CommentDO comment = (CommentDO) o;
         return Objects.equal(id, comment.id) && Objects.equal(userId, comment.userId) && Objects.equal(note, comment.note) && Objects.equal(gmtCreate, comment.gmtCreate) && Objects.equal(gmtModified, comment.gmtModified);
     }
 

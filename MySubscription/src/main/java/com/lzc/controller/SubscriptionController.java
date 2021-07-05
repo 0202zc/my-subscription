@@ -1,9 +1,10 @@
 package com.lzc.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lzc.pojo.Subscription;
+import com.lzc.pojo.SubscriptionDO;
 import com.lzc.service.CommentService;
 import com.lzc.service.SubscriptionService;
+import com.lzc.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class SubscriptionController {
     CommentService commentService;
 
     @GetMapping("/queryAllSubscriptions")
-    public List<Subscription> queryAllSubscriptions() {
+    public List<SubscriptionDO> queryAllSubscriptions() {
         return subscriptionService.queryAllSubscriptions();
     }
 
@@ -39,7 +40,7 @@ public class SubscriptionController {
     @PostMapping("/insertSubscription")
     public String insertSubscription(@RequestParam("userName") String userName, @RequestParam("email") String email, @RequestParam("serviceId") String serviceId, @RequestParam("sendTime") String sendTime, @RequestParam("allowSend") Integer allowSend, @RequestParam("cancelAlert") String cancelAlert, @RequestParam("comment") String comment) {
         if ("".equals(serviceId)) {
-            return JSON.toJSONString("failed");
+            return JSON.toJSONString(JsonUtils.FAIL_STRING);
         }
 
         userName = userName.trim();
@@ -56,10 +57,10 @@ public class SubscriptionController {
             if (!"".equals(sendTime)) {
                 // 批量订阅服务
                 for (String time : times) {
-                    Subscription subscription = new Subscription(Integer.parseInt(id), time, allowSend);
-                    msg1 = subscriptionService.insertSubscription(subscription, userName, email) == 1 ? "success" : "failed";
+                    SubscriptionDO subscription = new SubscriptionDO(Integer.parseInt(id), time, allowSend);
+                    msg1 = subscriptionService.insertSubscription(subscription, userName, email) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
                     System.out.println(msg1);
-                    if ("success".equals(msg1)) {
+                    if (JsonUtils.SUCCESS_STRING.equals(msg1)) {
                         flag = false;
                     }
                 }
@@ -67,9 +68,9 @@ public class SubscriptionController {
             if (!"".equals(cancelAlert)) {
                 // 批量退订服务
                 for (String time : cancel) {
-                    msg2 = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? "success" : "failed";
+                    msg2 = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
                     System.out.println(msg2);
-                    if ("success".equals(msg2)) {
+                    if (JsonUtils.SUCCESS_STRING.equals(msg2)) {
                         flag = false;
                     }
                 }
@@ -80,7 +81,7 @@ public class SubscriptionController {
             System.out.println(commentService.addComment(email, comment) != null ? email + " 的comment提交成功" : email + " 的comment提交失败");
         }
 
-        return JSON.toJSONString(flag ? "failed" : "success");
+        return JSON.toJSONString(flag ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING);
     }
 
     @PostMapping("/deleteSubscription")
@@ -93,7 +94,7 @@ public class SubscriptionController {
         String msg = "";
         for (String id : services) {
             for (String time : times) {
-                msg = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? "success" : "failed";
+                msg = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
                 System.out.println(msg);
             }
         }
@@ -116,9 +117,9 @@ public class SubscriptionController {
     @PostMapping("/updateSubsState")
     public String updateSubsState(@RequestParam("id") Integer id) {
         if(id == null) {
-            return JSON.toJSONString("failed");
+            return JSON.toJSONString(JsonUtils.FAIL_STRING);
         }
-        String msg = subscriptionService.updateSubsState(id) == 1 ? "success" : "failed";
+        String msg = subscriptionService.updateSubsState(id) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
         return JSON.toJSONString(msg);
     }
 }

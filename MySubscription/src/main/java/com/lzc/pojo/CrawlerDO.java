@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Crawler implements Serializable {
+public class CrawlerDO implements Serializable {
     private static final long serialVersionUID = -3252639351361284652L;
 
     private Integer id;
@@ -28,7 +28,7 @@ public class Crawler implements Serializable {
     private String gmtCreate;
     private String gmtModified;
 
-    public Crawler(String crawlerName, String filePath, Integer enabled) {
+    public CrawlerDO(String crawlerName, String filePath, Integer enabled) {
         this.crawlerName = crawlerName;
         this.filePath = filePath;
         this.enabled = enabled;
@@ -42,7 +42,7 @@ public class Crawler implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Crawler crawler = (Crawler) o;
+        CrawlerDO crawler = (CrawlerDO) o;
         return Objects.equal(id, crawler.id) && Objects.equal(crawlerName, crawler.crawlerName) && Objects.equal(filePath, crawler.filePath) && Objects.equal(email, crawler.email) && Objects.equal(enabled, crawler.enabled) && Objects.equal(fileType, crawler.fileType) && Objects.equal(gmtCreate, crawler.gmtCreate) && Objects.equal(gmtModified, crawler.gmtModified);
     }
 

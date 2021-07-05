@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Services implements Serializable {
+public class ServiceDO implements Serializable {
 
     private static final long serialVersionUID = 5034306744011120277L;
 
@@ -30,31 +30,31 @@ public class Services implements Serializable {
     private String gmtCreate;
     private String gmtModified;
 
-    public Services(Integer id, String serviceName, String note) {
+    public ServiceDO(Integer id, String serviceName, String note) {
         this.id = id;
         this.serviceName = serviceName;
         this.note = note;
     }
 
-    public Services(String serviceName, String note, String email, Integer enabled) {
+    public ServiceDO(String serviceName, String note, String email, Integer enabled) {
         this.serviceName = serviceName;
         this.note = note;
         this.email = email;
         this.enabled = enabled;
     }
 
-    public Services(String serviceName, String note) {
+    public ServiceDO(String serviceName, String note) {
         this.serviceName = serviceName;
         this.note = note;
     }
 
-    public Services(String serviceName, String note, Integer enabled) {
+    public ServiceDO(String serviceName, String note, Integer enabled) {
         this.serviceName = serviceName;
         this.note = note;
         this.enabled = enabled;
     }
 
-    public Services(Integer id) {
+    public ServiceDO(Integer id) {
         this.id = id;
     }
 
@@ -66,8 +66,8 @@ public class Services implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Services services = (Services) o;
-        return Objects.equal(id, services.id) && Objects.equal(serviceName, services.serviceName) && Objects.equal(note, services.note) && Objects.equal(email, services.email) && Objects.equal(enabled, services.enabled) && Objects.equal(serviceType, services.serviceType) && Objects.equal(gmtCreate, services.gmtCreate) && Objects.equal(gmtModified, services.gmtModified);
+        ServiceDO service = (ServiceDO) o;
+        return Objects.equal(id, service.id) && Objects.equal(serviceName, service.serviceName) && Objects.equal(note, service.note) && Objects.equal(email, service.email) && Objects.equal(enabled, service.enabled) && Objects.equal(serviceType, service.serviceType) && Objects.equal(gmtCreate, service.gmtCreate) && Objects.equal(gmtModified, service.gmtModified);
     }
 
     @Override

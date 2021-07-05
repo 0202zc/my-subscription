@@ -1,7 +1,7 @@
 package com.lzc.service.impl;
 
 import com.lzc.mapper.CrawlerMapper;
-import com.lzc.pojo.Crawler;
+import com.lzc.pojo.CrawlerDO;
 import com.lzc.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -20,46 +20,47 @@ import java.util.Map;
 @Service
 @CacheConfig(cacheNames = "crawler")
 public class CrawlerServiceImpl implements CrawlerService {
+    private final String ID = "id";
 
     @Autowired
     private CrawlerMapper crawlerMapper;
 
     @Override
-    public List<Crawler> queryAllCrawlers() {
+    public List<CrawlerDO> queryAllCrawlers() {
         return crawlerMapper.queryAllCrawlers();
     }
 
     @Override
     @Cacheable(key = "#id", condition = "null eq #id and #id > 0", unless = "null eq #result")
-    public Crawler queryCrawlerById(Integer id) {
+    public CrawlerDO queryCrawlerById(Integer id) {
         return crawlerMapper.queryCrawlerById(id);
     }
 
     @Override
-    public Crawler queryCrawlerByPath(String filePath) {
+    public CrawlerDO queryCrawlerByPath(String filePath) {
         return crawlerMapper.queryCrawlerByPath(filePath);
     }
 
     @Override
-    public List<Crawler> queryCrawlersByPath(String filePath) {
+    public List<CrawlerDO> queryCrawlersByPath(String filePath) {
         return crawlerMapper.queryCrawlersByPath(filePath);
     }
 
     @Override
-    public List<Crawler> queryCrawlersByServiceId(Integer serviceId) {
+    public List<CrawlerDO> queryCrawlersByServiceId(Integer serviceId) {
         return crawlerMapper.queryCrawlersByServiceId(serviceId);
     }
 
     @Override
     @CachePut(key = "#result.id", unless = "null eq #result")
-    public Crawler addCrawler(Crawler crawler) {
-        Map<String, Object> map = new HashMap<>();
+    public CrawlerDO addCrawler(CrawlerDO crawler) {
+        Map<String, Object> map = new HashMap<>(1);
         map.put("crawlerName", crawler.getCrawlerName());
         map.put("filePath", crawler.getFilePath());
         map.put("enabled", crawler.getEnabled());
         map.put("id", null);
         crawlerMapper.addCrawler(map);
-        if (map.get("id") == null) {
+        if (map.get(ID) == null) {
             return null;
         }
         crawler.setId(Integer.parseInt(map.get("id").toString()));
@@ -67,8 +68,8 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public Integer addCrawlerWithService(Crawler crawler, Integer serviceId) {
-        Map<String, Object> map = new HashMap<>();
+    public Integer addCrawlerWithService(CrawlerDO crawler, Integer serviceId) {
+        Map<String, Object> map = new HashMap<>(1);
         map.put("crawlerName", crawler.getCrawlerName());
         map.put("filePath", crawler.getFilePath());
         map.put("enabled", crawler.getEnabled());
@@ -79,7 +80,6 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-//    @CachePut(value = "service_crawler", key = "#result", unless = "0 eq #result")
     public Integer addAssociation(Integer serviceId, Integer crawlerId) {
         return crawlerMapper.addAssociation(serviceId, crawlerId);
     }
@@ -92,7 +92,7 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     @CachePut(key = "#crawler.id", unless = "0 eq #result")
-    public Crawler updateCrawler(Crawler crawler) {
+    public CrawlerDO updateCrawler(CrawlerDO crawler) {
         return crawlerMapper.updateCrawler(crawler) == 1 ? crawler : null;
     }
 

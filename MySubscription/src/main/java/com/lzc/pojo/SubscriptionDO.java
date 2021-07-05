@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Subscription implements Serializable {
+public class SubscriptionDO implements Serializable {
 
     private static final long serialVersionUID = 2543425082595826059L;
 
@@ -26,13 +26,13 @@ public class Subscription implements Serializable {
     private String subscribeTime;
     private String gmtModified;
 
-    public Subscription(Integer serviceId, String sendTime, Integer allowSend) {
+    public SubscriptionDO(Integer serviceId, String sendTime, Integer allowSend) {
         this.serviceId = serviceId;
         this.sendTime = sendTime;
         this.allowSend = allowSend;
     }
 
-    public Subscription(Integer userId, Integer serviceId, String sendTime) {
+    public SubscriptionDO(Integer userId, Integer serviceId, String sendTime) {
         this.userId = userId;
         this.serviceId = serviceId;
         this.sendTime = sendTime;
@@ -46,7 +46,7 @@ public class Subscription implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subscription that = (Subscription) o;
+        SubscriptionDO that = (SubscriptionDO) o;
         return Objects.equal(id, that.id) && Objects.equal(userId, that.userId) && Objects.equal(serviceId, that.serviceId) && Objects.equal(sendTime, that.sendTime) && Objects.equal(allowSend, that.allowSend) && Objects.equal(subscribeTime, that.subscribeTime) && Objects.equal(gmtModified, that.gmtModified);
     }
 

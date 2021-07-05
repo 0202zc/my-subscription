@@ -1,13 +1,12 @@
 package com.lzc.util;
 
-import com.lzc.pojo.Crawler;
+import com.lzc.pojo.CrawlerDO;
 import com.lzc.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,19 +17,19 @@ import java.util.Map;
  * @description 文件工具类
  */
 @Component
-public final class FileUtil {
+public final class FileUtils {
 
     @Autowired
     private CrawlerService crawlerService;
-    private static FileUtil fileUtil;
+    private static FileUtils fileUtils;
 
     public static final Integer FILE_NAME_LENGTH = 45;
     public static final Integer FILEPATH_LENGTH = 100;
 
     @PostConstruct
     public void init() {
-        fileUtil = this;
-        fileUtil.crawlerService = this.crawlerService;
+        fileUtils = this;
+        fileUtils.crawlerService = this.crawlerService;
     }
 
     /**
@@ -67,16 +66,15 @@ public final class FileUtil {
      * @description 扫描文件并同步数据库删除失效的文件，只扫描用户自定义文件夹
      */
     public static void scanFiles() {
-        List<Crawler> crawlers = fileUtil.crawlerService.queryAllCrawlers();
-        for (Crawler crawler : crawlers) {
+        List<CrawlerDO> crawlers = fileUtils.crawlerService.queryAllCrawlers();
+        for (CrawlerDO crawler : crawlers) {
             if (crawler.getFileType() == 0) {
                 continue;
             }
             String crawlerName = crawler.getCrawlerName();
             File file = new File(FILEPATH + crawlerName);
-//            File file = new File(crawler.getFilePath());
             if (!file.exists()) {
-                fileUtil.crawlerService.deleteCrawlerById(crawler.getId());
+                fileUtils.crawlerService.deleteCrawlerById(crawler.getId());
             }
         }
     }
@@ -104,11 +102,11 @@ public final class FileUtil {
         // 获取系统文件夹中的文件
         File[] files = file.listFiles();
         // 获取数据库中的文件
-        List<Crawler> dbFiles = fileUtil.crawlerService.queryCrawlersByPath(path);
+        List<CrawlerDO> dbFiles = fileUtils.crawlerService.queryCrawlersByPath(path);
 
         // 文件路径映射
-        Map<String, String> map = new HashMap<>();
-        for (Crawler crawler : dbFiles) {
+        Map<String, String> map = new HashMap<>(dbFiles.size());
+        for (CrawlerDO crawler : dbFiles) {
             map.put(crawler.getFilePath(), crawler.getCrawlerName());
         }
         for (File fl : files) {
@@ -116,7 +114,7 @@ public final class FileUtil {
             String filePath = fl.getAbsoluteFile().toString().replaceAll("\\\\", "/");
             // 如果数据库中没有该文件，则添加到数据库中
             if (map.get(filePath) == null) {
-                fileUtil.crawlerService.addCrawler(new Crawler(fl.getName(), filePath, 1));
+                fileUtils.crawlerService.addCrawler(new CrawlerDO(fl.getName(), filePath, 1));
             }
         }
     }

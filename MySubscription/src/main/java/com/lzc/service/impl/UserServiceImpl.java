@@ -3,7 +3,7 @@ package com.lzc.service.impl;
 import com.lzc.mapper.CommentMapper;
 import com.lzc.mapper.SubscriptionMapper;
 import com.lzc.mapper.UserMapper;
-import com.lzc.pojo.User;
+import com.lzc.pojo.UserDO;
 import com.lzc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<User> queryUsers(User user) {
+    public List<UserDO> queryUsers(UserDO user) {
         return userMapper.queryUsers(user);
     }
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Cacheable(key = "#user.id", condition = "null ne #user.id", unless = "null eq #result")
-    public User queryUser(User user) {
+    public UserDO queryUser(UserDO user) {
         if (user.getId() == null && user.getEmail() == null) {
             return null;
         }
@@ -57,26 +57,25 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Cacheable(key = "#userId", unless = "null eq #result")
-    public User queryUserById(Integer userId) {
+    public UserDO queryUserById(Integer userId) {
         System.out.println("database");
         return userMapper.queryUserById(userId);
     }
 
     @Override
-//    @Cacheable(key = "#email", unless = "null eq #result")
-    public User queryUserByEmail(String email) {
+    public UserDO queryUserByEmail(String email) {
         return userMapper.queryUserByEmail(email);
     }
 
     @Override
     @CachePut(key = "#user.id")
-    public User addUser(User user) {
+    public UserDO addUser(UserDO user) {
         return userMapper.addUser(user) == 1 ? user : null;
     }
 
     @Override
     @CacheEvict(key = "#user.id")
-    public Integer deleteUser(User user) {
+    public Integer deleteUser(UserDO user) {
         commentMapper.deleteCommentByUserId(user.getId());
         subscriptionMapper.deleteSubscriptionByUserId(user.getId());
         return userMapper.deleteUser(user);
@@ -85,21 +84,24 @@ public class UserServiceImpl implements UserService {
     @Override
     @CacheEvict(key = "#id")
     public Integer deleteUserByEmail(String email, Integer id) {
-        User user = userMapper.queryUserByEmail(email);
-        commentMapper.deleteCommentByUserId(user.getId());  // 删除该用户的评论
-        subscriptionMapper.deleteSubscriptionByUserId(user.getId());    // 删除该用户的订阅
-        return userMapper.deleteUserByEmail(email); // 删除该用户
+        UserDO user = userMapper.queryUserByEmail(email);
+        // 删除该用户的评论
+        commentMapper.deleteCommentByUserId(user.getId());
+        // 删除该用户的订阅
+        subscriptionMapper.deleteSubscriptionByUserId(user.getId());
+        // 删除该用户
+        return userMapper.deleteUserByEmail(email);
     }
 
     @Override
     @CachePut(key = "#user.id", unless = "null eq #result")
-    public User updateUser(User user) {
+    public UserDO updateUser(UserDO user) {
         return userMapper.updateUser(user) == 1 ? user : null;
     }
 
     @Override
     @CachePut(key = "#result.id", unless = "null eq #result")
-    public User updateUserEmail(String oldEmail, String newEmail) {
+    public UserDO updateUserEmail(String oldEmail, String newEmail) {
         userMapper.updateUserEmail(oldEmail, newEmail);
         return userMapper.queryUserByEmail(newEmail);
     }

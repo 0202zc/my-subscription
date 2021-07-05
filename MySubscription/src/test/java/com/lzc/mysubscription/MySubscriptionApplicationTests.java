@@ -1,12 +1,11 @@
 package com.lzc.mysubscription;
 
-import com.lzc.pojo.User;
-import com.lzc.util.FileUtil;
+import com.lzc.pojo.UserDO;
+import com.lzc.util.EnumUtils;
+import com.lzc.util.FileUtils;
 import com.lzc.util.Md5Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.io.FileNotFoundException;
 
 @SpringBootTest
 class MySubscriptionApplicationTests {
@@ -17,8 +16,8 @@ class MySubscriptionApplicationTests {
 
     @Test
     void fileTest() {
-        FileUtil.scanFiles();
-        FileUtil.scanDirectory(null);
+        FileUtils.scanFiles();
+        FileUtils.scanDirectory(null);
     }
 
     @Test
@@ -29,9 +28,15 @@ class MySubscriptionApplicationTests {
 
     @Test
     void guavaTest() {
-        User user = new User();
+        UserDO user = new UserDO();
         user.setId(1);
         System.out.println(user);
+    }
+
+    @Test
+    void enumTest() {
+        EnumUtils.SwitchRole switchRole = EnumUtils.SwitchRole.ADMIN;
+        System.out.println(switchRole);
     }
 
 }
