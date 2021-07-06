@@ -1435,6 +1435,7 @@
             return $row;
         })
 
+        // 点击编辑按钮
         $('#gview_grid-table').on('click', '.ui-icon-pencil', function (e) {
             var $row = $(this).parents('tr')[0];
             var check = $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).attr('title').trim();
@@ -1453,6 +1454,7 @@
             }
         })
 
+        // 编辑后点击提交按钮
         $('#gview_grid-table').on('click', '.ui-icon-disk', function (e) {
             var $row = $(this).parents('tr')[0];
             setTimeout(function (e) {
@@ -1479,7 +1481,37 @@
                     $("#alert-info").removeClass("alert-info").addClass("alert-danger");
                     $('#information').text("数据请求失败");
                 });
-            }, 100);
+            }, 90);
+        })
+
+        // 编辑后点击取消按钮
+        $('#gview_grid-table').on('click', '.ui-icon-cancel', function (e) {
+            var $row = $(this).parents('tr')[0];
+            setTimeout(function (e) {
+                $.getJSON("http://localhost:7000/MySubscription/user/queryUser/" + $row['id']).done(function (data) {
+                    console.log(data);
+                    if (typeof (data['role']) !== 'undefined') {
+                        if (data['role'] === 1) {
+                            $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).attr('title', ' user');
+                        } else {
+                            $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).attr('title', ' admin');
+                        }
+                        $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).html(format_role(data['role']));
+                    }
+                    if (typeof (data['isAllowed']) !== 'undefined') {
+                        if (data['isAllowed'] === 1) {
+                            $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).attr('title', '允许发送');
+                        } else {
+                            $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).attr('title', '拒绝发送');
+                        }
+
+                        $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).html(format_authority(data['isAllowed']));
+                    }
+                }).fail(function () {
+                    $("#alert-info").removeClass("alert-info").addClass("alert-danger");
+                    $('#information').text("数据请求失败");
+                });
+            }, 20);
         })
 
 
