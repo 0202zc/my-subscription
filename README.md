@@ -1,6 +1,8 @@
-# my-subscription
-邮件订阅软件，用户提交需要订阅的内容和时间（可自行定义服务），服务器调度爬虫进行推送。
-后端基于 SpringBoot + MyBatis，使用 Redis 来缓存数据，前端使用 Ace Admin 作为模板，利用Python编写爬虫程序。采用Nginx搭建服务器，托管前端代码。
+# my-subscription 邮件订阅软件
+- 业务流程：用户访问页面，提交需要订阅的内容和时间（可自行定义服务），程序调度爬虫适时进行邮件推送。
+- 本项目采用前后端分离的模式。后端业务处理基于 SpringBoot + MyBatis，爬虫基于Python编写；前端使用 Ace Admin 作为模板
+- 使用 Redis 作为缓存
+- 采用 Nginx 搭建服务器，托管前端代码
 
 ## 面向人群
 - 不能及时或不想自己手动获取信息
@@ -56,10 +58,14 @@
 5. 修改后端代码（IDEA项目文件夹：MySubcription）
      - 根据个人情况修改applicaiton.yml中的内容
      - 用户自定义上传的文件路径位于 `com/lzc/util/FileUtils.java` 的常量 `FILEPATH`，根据情况修改
-6. Python文件：crawlers/**
-     - stable 文件夹为爬虫的稳定版本，beta为测试版本，beta/customize 为用户自定义文件存放位置
-     - database_util.py：数据库工具文件，注意修改登录配置信息
-     - mail_assist.py：邮件发送工具文件，根据内容进行信息配置，需要开通smtp服务
-     - spider_hot.py：管理员编写的爬虫文件，整合了`weibo_spider.py`（微博热搜）、`zhihu_spider.py`（知乎热搜）、`covid19_spider.py`（国内新冠疫情每日新增信息）
-     - spider_customize.py：用户自定义爬虫调度工具文件，扫描文件的路径根据实际情况修改
-     - process_util.py：总调度文件，在每日的8点、12点、20点启动程序
+     - 运行服务器，启动项目
+6. 启动Python调度：
+     - 控制台执行命令：`python process_util.py`
+     - 所有Python文件位于crawlers/**：
+          - stable 文件夹为爬虫的稳定版本，beta为测试版本，beta/customize 为用户自定义文件存放位置
+          - database_util.py：数据库工具文件，注意修改登录配置信息
+          - mail_assist.py：邮件发送工具文件，根据内容进行信息配置，需要开通smtp服务
+          - spider_hot.py：管理员编写的爬虫文件，整合了`weibo_spider.py`（微博热搜）、`zhihu_spider.py`（知乎热搜）、`covid19_spider.py`（国内新冠疫情每日新增信息）
+          - spider_customize.py：用户自定义爬虫调度工具文件，扫描文件的路径根据实际情况修改
+          - process_util.py：总调度文件，在每日的8点、12点、20点启动程序
+> 注：html/ace-master文件夹中，修改过的文件以"\*-copy.html"结尾
