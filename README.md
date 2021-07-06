@@ -42,8 +42,24 @@
 
 # Installation
 ## Requirement
-- `Java 1.8`、`MySQL 5.7`、`Nginx latest stable version`、`Python 3.6`、`Redis latest stable version`
+- `Java 1.8`
+- `MySQL 5.7`
+- `Nginx: latest stable version`
+- `Python 3.6`
+- `Redis: latest stable version`
 
 ## Step
-1. git项目 `my-subscription` 到本地
-2. 新建数据库 `db_mail_send`，导入/config/database中的.sql文件
+1. git clone 项目 `my-subscription` 到本地
+2. 新建数据库 `db_mail_send`，选择 `utf8mb4` 编码，运行 `config/database/` 中的.sql文件进行导入
+3. 配置Nginx，参考 `config/nginx/conf` 中的文件，将 `html/ace-master` 文件夹以移动到本地nginx的html目录下
+4. 配置Redis，配置应与application.yml设置一致（自定义）
+5. 修改后端代码（IDEA项目文件夹：MySubcription）
+     - 根据个人情况修改applicaiton.yml中的内容
+     - 用户自定义上传的文件路径位于 `com/lzc/util/FileUtils.java` 的常量 `FILEPATH`，根据情况修改
+6. Python文件：crawlers/**
+     - stable 文件夹为爬虫的稳定版本，beta为测试版本，beta/customize 为用户自定义文件存放位置
+     - database_util.py：数据库工具文件，注意修改登录配置信息
+     - mail_assist.py：邮件发送工具文件，根据内容进行信息配置，需要开通smtp服务
+     - spider_hot.py：管理员编写的爬虫文件，整合了`weibo_spider.py`（微博热搜）、`zhihu_spider.py`（知乎热搜）、`covid19_spider.py`（国内新冠疫情每日新增信息）
+     - spider_customize.py：用户自定义爬虫调度工具文件，扫描文件的路径根据实际情况修改
+     - process_util.py：总调度文件，在每日的8点、12点、20点启动程序
