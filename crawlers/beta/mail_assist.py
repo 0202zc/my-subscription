@@ -55,6 +55,10 @@ def send_mail(msg, email_dict):
 
 # 仅根据用户列表发送邮件
 def mail_send_with_user(content, subject, getters):
+    # 清空缓存
+    mail_dict['mail_qq']['getter'] = []
+    mail_dict['mail_163']['getter'] = []
+    
     divide_mail(getters)
 
     ret = True
