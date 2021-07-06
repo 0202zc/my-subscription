@@ -34,8 +34,14 @@ def divide_mail(getter):
 
 # 根据邮箱参数发送邮件
 def send_mail(msg, email_dict):
-    sender = email_dict['sender']
     getter = email_dict['getter']
+    
+    # 判空，减少运行时间
+    if len(getter) == 0:
+        print("没有" + email_dict['server'] + "服务的邮箱")
+        return
+    
+    sender = email_dict['sender']
     server_url = email_dict['server']
     password = email_dict['password']
 
