@@ -1,6 +1,6 @@
 # my-subscription 邮件订阅软件
 - 业务流程：用户访问页面，提交需要订阅的内容和时间（可自行定义服务），程序调度爬虫适时进行邮件推送。
-- 本项目采用前后端分离的模式。后端业务处理基于 SpringBoot + MyBatis，爬虫基于Python编写；前端使用 Ace Admin 作为模板
+- 本项目采用前后端分离架构。后端业务处理基于 SpringBoot + MyBatis，爬虫基于Python编写；前端使用 Ace Admin 作为模板
 - 使用 Redis 作为缓存
 - 采用 Nginx 搭建服务器，托管前端代码
 
@@ -60,7 +60,7 @@
      - 用户自定义上传的文件路径位于 `com/lzc/util/FileUtils.java` 的常量 `FILEPATH`，根据情况修改
      - 运行服务器，启动项目
 6. 启动Python调度：
-     - 控制台执行命令：`python process_util.py`
+     - 利用 `cd` 命令进入`process_uitl.py`文件夹后，控制台执行命令：`python process_util.py`
      - 所有Python文件位于crawlers/**：
           - stable 文件夹为爬虫的稳定版本，beta为测试版本，beta/customize 为用户自定义文件存放位置
           - database_util.py：数据库工具文件，注意修改登录配置信息
