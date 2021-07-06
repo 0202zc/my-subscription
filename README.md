@@ -1,5 +1,6 @@
 # my-subscription
-邮件订阅软件，用户提交需要订阅的内容和时间（可自行定义服务），服务器调度爬虫进行推送。后端基于 SpringBoot，前端使用 Ace Admin 作为模板，利用Python编写爬虫程序。采用Nginx搭建服务器，托管前端代码。
+邮件订阅软件，用户提交需要订阅的内容和时间（可自行定义服务），服务器调度爬虫进行推送。
+后端基于 SpringBoot + MyBatis，使用 Redis 来缓存数据，前端使用 Ace Admin 作为模板，利用Python编写爬虫程序。采用Nginx搭建服务器，托管前端代码。
 
 ## 面向人群
 - 不能及时或不想自己手动获取信息
@@ -39,3 +40,10 @@
 - 删除用户：每一行的“操作”为单独修改方式，表格下方的删除和编辑为批量修改方式
 - 添加用户：左下方的“加号”按钮，仅能添加邮箱、权限和用户类型，用户名需要点击编辑才能修改(bug)
 
+# Installation
+## Requirement
+- `Java 1.8`、`MySQL 5.7`、`Nginx latest stable version`、`Python 3.6`、`Redis latest stable version`
+
+## Step
+1. git项目 `my-subscription` 到本地
+2. 新建数据库 `db_mail_send`，导入/config/database中的.sql文件
