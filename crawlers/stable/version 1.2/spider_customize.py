@@ -1,5 +1,7 @@
 # 用户自定义爬虫检测文件
 import importlib
+import os
+import sys
 
 from database_util import *
 from datetime import datetime
@@ -25,14 +27,14 @@ class Customize:
             path = self.file_dict[service_id][3]
 
             try:
-                module_name = importlib.import_module('customize.' + filename)  # 根据需要修改
+                module_name = importlib.import_module('customize.' + filename)  # 需要修改
                 content = module_name.process()
                 insert_crawls_content([content], service_id)
             except ModuleNotFoundError as mne:
                 print(mne)
             except Exception as e:
                 print(e)
-                mail_send_with_user(e, 'sprider_customize.py 出现异常', ['收件人'])
+                # mail_send_with_user(e, 'sprider_customize.py 出现异常', '1115810371@qq.com', ['lzc980202@163.com'])
 
     def get_content(self):
         service_list = query_active_subs_service()
@@ -63,7 +65,7 @@ class Customize:
 
             if content.__len__() is not 0 or content is not '':
                 local_time = datetime.now().strftime("%m-%d %H:%M")
-                mail_send_with_user(content, subject + '(' + local_time + ')', [user[1]])
+                mail_send_with_user(content, subject + '(' + local_time + ')', '发件人', [user[1]])
 
 
 def process(time):

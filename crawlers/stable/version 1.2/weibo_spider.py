@@ -3,9 +3,9 @@ import requests
 import sys
 import time
 
-from bs4 import BeautifulStoneSoup
-from mail_assist import send_mail_with_time
+from bs4 import BeautifulSoup
 from mail_assist import mail_send_with_user
+from mail_assist import send_mail_with_time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from datetime import datetime
 
@@ -74,7 +74,7 @@ def main():
         process()
     except Exception as e:
         print(e)
-        mail_send_with_user(e, "An Exception from 'weibo_spider.py'", "收件人")
+        mail_send_with_user(e, "An Exception from 'weibo_spider.py'", "发件人", "收件人")
         print("程序暂停3秒后重新执行")
         time.sleep(3)
         os.system("cls")

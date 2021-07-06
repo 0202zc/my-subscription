@@ -7,6 +7,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from mail_assist import mail_send_with_user
 from mail_assist import send_mail_with_time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from datetime import datetime

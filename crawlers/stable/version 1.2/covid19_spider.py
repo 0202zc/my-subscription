@@ -129,7 +129,7 @@ def main():
         process()
     except Exception as e:
         print(e)
-        mail_send_with_user(e, "An Exception from 'covid19_spider.py'", "收件人")
+        mail_send_with_user(e, "An Exception from 'covid19_spider.py'", "发件人", "收件人")
         print("程序暂停3秒后重新执行")
         time.sleep(3)
         os.system("cls")

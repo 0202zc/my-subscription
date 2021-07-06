@@ -6,6 +6,7 @@ import covid19_spider as covid19
 from mail_assist import mail_send_with_user
 from mail_assist import send_mail_with_time
 from datetime import datetime
+from database_util import query_subscriptions_by_user_id
 from database_util import query_admin_service_subscriptions_by_user_id
 from database_util import query_users
 
@@ -42,7 +43,7 @@ def hot(time):
 
         if content.__len__() is not 0 or content is not '':
             local_time = datetime.now().strftime("%m-%d %H:%M")
-            mail_send_with_user(content, subject + local_time, [user[1]])
+            # mail_send_with_user(content, subject + local_time, '1115810371@qq.com', [user[1]])
 
 
 def process():
