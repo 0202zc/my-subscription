@@ -2,7 +2,7 @@
 - 业务流程：用户访问页面，提交需要订阅的内容和时间（可自行定义服务），程序调度爬虫适时进行邮件推送。
 - 本项目采用前后端分离架构。后端业务处理基于 SpringBoot + MyBatis，爬虫基于Python编写；前端使用 Ace Admin 作为模板
 - 使用 Redis 作为缓存
-- 采用 Nginx 搭建服务器，托管前端代码
+- 采用 Nginx 搭建服务器，托管前端代码，同时解决前后端的跨域问题
 
 ## 面向人群
 - 不能及时或不想自己手动获取信息
@@ -53,19 +53,37 @@
 ## Step
 1. git clone 项目 `my-subscription` 到本地
 2. 新建数据库 `db_mail_send`，选择 `utf8mb4` 编码，运行 `config/database/` 中的.sql文件进行导入
-3. 配置Nginx，参考 `config/nginx/conf` 中的文件，将 `html/ace-master` 文件夹以移动到本地nginx的html目录下
-4. 配置Redis，配置应与application.yml设置一致（自定义）
-5. 修改后端代码（IDEA项目文件夹：MySubcription）
+3. 配置 Nginx，参考 `config/nginx/conf` 中的文件，将 `html/ace-master` 文件夹以移动到本地 nginx 的 `html` 目录下
+4. 配置 Redis，配置应与 `application.yml` 设置一致（自定义）
+5. 运行 Tomcat 服务器，启动项目
+6. 启动 Python 调度：控制台执行命令：`python (该文件所在的目录路径)/process_util.py`
+
+## 使用说明
+
+1. 所有Python文件位于 `crawlers/**`：
+- `stable` 文件夹为爬虫的稳定版本，`beta` 为测试版本，`beta/customize` 为用户自定义文件存放位置
+- database_util.py：数据库工具文件，注意修改登录配置信息
+- mail_assist.py：邮件发送工具文件，根据内容进行信息配置，需要开通smtp服务
+- spider_hot.py：管理员编写的爬虫文件，整合了`weibo_spider.py`（微博热搜）、`zhihu_spider.py`（知乎热搜）、`covid19_spider.py`（国内新冠疫情每日新增信息）
+- spider_customize.py：用户自定义爬虫调度工具文件，扫描文件的路径根据实际情况修改
+- process_util.py：总调度文件，在每日的8点、12点、20点启动程序，可按需修改
+
+2. html/ace-master文件夹中，修改过的文件以"\*-copy.html"结尾
+
+3. 修改后端代码（IDEA项目文件夹：MySubcription）
      - 根据个人情况修改applicaiton.yml中的内容
      - 用户自定义上传的文件路径位于 `com/lzc/util/FileUtils.java` 的常量 `FILEPATH`，根据情况修改
-     - 运行服务器，启动项目
-6. 启动Python调度：
-     - 利用 `cd` 命令进入`process_uitl.py`文件夹后，控制台执行命令：`python process_util.py`
-     - 所有Python文件位于crawlers/**：
-          - stable 文件夹为爬虫的稳定版本，beta为测试版本，beta/customize 为用户自定义文件存放位置
-          - database_util.py：数据库工具文件，注意修改登录配置信息
-          - mail_assist.py：邮件发送工具文件，根据内容进行信息配置，需要开通smtp服务
-          - spider_hot.py：管理员编写的爬虫文件，整合了`weibo_spider.py`（微博热搜）、`zhihu_spider.py`（知乎热搜）、`covid19_spider.py`（国内新冠疫情每日新增信息）
-          - spider_customize.py：用户自定义爬虫调度工具文件，扫描文件的路径根据实际情况修改
-          - process_util.py：总调度文件，在每日的8点、12点、20点启动程序
-> 注：html/ace-master文件夹中，修改过的文件以"\*-copy.html"结尾
+
+4. 本项目采用前后端分离，前端使用 Ajax 与后端进行数据交互，这时会出现跨域访问。由于安全性（同源策略），有些浏览器是禁止跨域访问的（借助 `Access-Control-Allow-Origin`），这个时候就引入了 Nginx 进行反向代理，以便满足浏览器的 **同源策略** 实现跨域。本项目中的 Nginx 还有一方面的作用是作为 **静态资源服务器** 。
+
+## 参与贡献
+
+1.  Fork 本仓库
+2.  新建 dev 分支
+3.  提交代码
+4.  新建 Pull Request
+
+
+## 项目展示
+
+服务订阅：http://106.52.58.41/form-wizard-copy.html
