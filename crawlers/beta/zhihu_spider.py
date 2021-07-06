@@ -78,7 +78,7 @@ def prettify():
 
     for data in data_dict:
         content += '<tr><td align="center">' + str(rank) + "</td>"
-        content += '<td><a href="https://www.zhihu.com/search?q=' + urllib.parse.quote(
+        content += '<td><a href="https://www.zhihu.com/search?type=content&q=' + urllib.parse.quote(
             data['realQuery']) + '" target="_blank">' + data['queryDisplay'] + "</a><br>" + data[
                        'queryDescription'] + "</td></tr>"
 
