@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Liang Zhancheng
  * @date 2021/6/28 20:36
- * @description
+ * @description 长度配置类
  */
 @Configuration
 public class LengthConfig {

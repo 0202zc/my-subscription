@@ -53,6 +53,6 @@ server:
   port: 8888
   tomcat:
     uri-encoding: UTF-8
-  max-http-header-size: 15360
+  max-http-header-size: 8192
   servlet:
     context-path: /MySubscription
