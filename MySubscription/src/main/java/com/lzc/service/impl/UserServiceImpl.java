@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
         if (user.getId() == null && user.getEmail() == null) {
             return null;
         }
-        System.out.println("database");
         return userMapper.queryUser(user);
     }
 
@@ -58,7 +57,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(key = "#userId", unless = "null eq #result")
     public UserDO queryUserById(Integer userId) {
-        System.out.println("database");
         return userMapper.queryUserById(userId);
     }
 

@@ -8,6 +8,7 @@ import com.lzc.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -38,8 +39,8 @@ public class SubscriptionController {
     }
 
     @PostMapping("/insertSubscription")
-    public String insertSubscription(@RequestParam("userName") String userName, @RequestParam("email") String email, @RequestParam("serviceId") String serviceId, @RequestParam("sendTime") String sendTime, @RequestParam("allowSend") Integer allowSend, @RequestParam("cancelAlert") String cancelAlert, @RequestParam("comment") String comment) {
-        if ("".equals(serviceId)) {
+    public String insertSubscription(HttpServletResponse response, @RequestParam("userName") String userName, @RequestParam("email") String email, @RequestParam("serviceId") String serviceId, @RequestParam("sendTime") String sendTime, @RequestParam("allowSend") Integer allowSend, @RequestParam("cancelAlert") String cancelAlert, @RequestParam("comment") String comment) {
+        if (serviceId == null || serviceId.length() == 0) {
             return JSON.toJSONString(JsonUtils.FAIL_STRING);
         }
 
@@ -54,22 +55,20 @@ public class SubscriptionController {
         boolean flag = true;
 
         for (String id : services) {
-            if (!"".equals(sendTime)) {
+            if (sendTime != null && sendTime.length() > 0) {
                 // 批量订阅服务
                 for (String time : times) {
                     SubscriptionDO subscription = new SubscriptionDO(Integer.parseInt(id), time, allowSend);
                     msg1 = subscriptionService.insertSubscription(subscription, userName, email) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
-                    System.out.println(msg1);
                     if (JsonUtils.SUCCESS_STRING.equals(msg1)) {
                         flag = false;
                     }
                 }
             }
-            if (!"".equals(cancelAlert)) {
+            if (cancelAlert != null && cancelAlert.length() > 0) {
                 // 批量退订服务
                 for (String time : cancel) {
                     msg2 = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
-                    System.out.println(msg2);
                     if (JsonUtils.SUCCESS_STRING.equals(msg2)) {
                         flag = false;
                     }
@@ -77,8 +76,9 @@ public class SubscriptionController {
             }
         }
 
-        if (comment != null && !"".equals(comment)) {
-            System.out.println(commentService.addComment(email, comment) != null ? email + " 的comment提交成功" : email + " 的comment提交失败");
+        if (comment != null && comment.length() > 0) {
+            String msg = commentService.addComment(email, comment) != null ? email + " 的comment提交成功" : email + " 的comment提交失败";
+            JsonUtils.toJsonString(response.getStatus(), msg);
         }
 
         return JSON.toJSONString(flag ? JsonUtils.FAIL_STRING : JsonUtils.SUCCESS_STRING);
@@ -91,14 +91,15 @@ public class SubscriptionController {
 
         String[] services = serviceId.split(",");
         String[] times = sendTime.split(",");
-        String msg = "";
+        boolean flag = true;
         for (String id : services) {
             for (String time : times) {
-                msg = subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;
-                System.out.println(msg);
+                if (subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) != 1){
+                    flag = false;
+                }
             }
         }
-        return JSON.toJSONString(msg);
+        return JSON.toJSONString(flag ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING);
     }
 
 
@@ -116,7 +117,7 @@ public class SubscriptionController {
 
     @PostMapping("/updateSubsState")
     public String updateSubsState(@RequestParam("id") Integer id) {
-        if(id == null) {
+        if (id == null) {
             return JSON.toJSONString(JsonUtils.FAIL_STRING);
         }
         String msg = subscriptionService.updateSubsState(id) == 1 ? JsonUtils.SUCCESS_STRING : JsonUtils.FAIL_STRING;

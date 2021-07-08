@@ -71,7 +71,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="ReactorSettings">
@@ -100,15 +100,13 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.MySubscriptionApplication">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -206,18 +204,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.MySubscriptionApplicationTests.contextLoads" />
-      <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
-      <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
-      <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
       <item itemvalue="JUnit.MySubscriptionApplicationTests.enumTest" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
+      <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
       <item itemvalue="Spring Boot.MySubscriptionApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MySubscriptionApplicationTests.enumTest" />
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.guavaTest" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.fileTest" />
-        <item itemvalue="JUnit.MySubscriptionApplicationTests.md5Test" />
+        <item itemvalue="JUnit.MySubscriptionApplicationTests.enumTest" />
         <item itemvalue="JUnit.MySubscriptionApplicationTests.contextLoads" />
       </list>
     </recent_temporary>
@@ -304,7 +302,12 @@
       <workItem from="1625585348989" duration="614000" />
       <workItem from="1625586137355" duration="154000" />
       <workItem from="1625591178176" duration="764000" />
-      <workItem from="1625617649474" duration="2492000" />
+      <workItem from="1625617649474" duration="2624000" />
+      <workItem from="1625622213477" duration="90000" />
+      <workItem from="1625622725852" duration="285000" />
+      <workItem from="1625635326226" duration="232000" />
+      <workItem from="1625668990319" duration="68000" />
+      <workItem from="1625713986573" duration="4029000" />
     </task>
     <task id="LOCAL-00001" summary="新增Services文件上传类型列、输入长度配置文件LenghConfig.java">
       <created>1624893469360</created>

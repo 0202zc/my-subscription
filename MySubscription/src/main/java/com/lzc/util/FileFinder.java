@@ -43,7 +43,7 @@ public class FileFinder {
      */
     @SuppressWarnings("all")
     public static FileFinder getInstance(String path) throws FileNotFoundException {
-        if (path == null || path.trim().equals("")) {
+        if (path == null || path.trim().length() == 0) {
             throw new FileNotFoundException("path不能为空");
         }
         FileFinder fileFinder = new FileFinder();

@@ -55,7 +55,7 @@ public class CrawlerController {
 
     @PostMapping("/addCrawler")
     public String addCrawler(HttpServletResponse response, @RequestParam("crawlerName") String crawlerName, @RequestParam("filePath") String filePath, @RequestParam("enabled") Integer enabled) {
-        if (crawlerName == null || filePath == null || enabled == null) {
+        if (crawlerName == null || filePath == null || enabled == null || crawlerName.length() == 0 || filePath.length() == 0) {
             JsonUtils.toJsonString(response.getStatus(), "有参数为空");
         }
 

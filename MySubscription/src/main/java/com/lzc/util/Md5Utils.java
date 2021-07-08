@@ -35,7 +35,7 @@ public class Md5Utils {
              * */
             byte[] byteDigest = md.digest();
             int i;
-            StringBuffer buf = new StringBuffer("");
+            StringBuilder buf = new StringBuilder("");
             //遍历byteDigest
             //加密逻辑，可以debug自行了解一下加密逻辑
             for (byte b : byteDigest) {
