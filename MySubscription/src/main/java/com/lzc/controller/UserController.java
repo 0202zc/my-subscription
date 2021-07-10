@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -19,10 +20,10 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    RedisUtils redisUtils;
+    private RedisUtils redisUtils;
 
     private final String ADD = "add";
     private final String EDIT = "edit";
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/queryUsers")
-    public String queryUsers(HttpServletResponse response, String id, String userName, String email, String isAllowed, String role) {
+    public String queryUsers(HttpSession session, HttpServletResponse response, String id, String userName, String email, String isAllowed, String role) {
         if (id != null && JsonUtils.isNumeric(id)) {
             return JsonUtils.toJsonString(response.getStatus(), "'id' 格式不正确");
         }

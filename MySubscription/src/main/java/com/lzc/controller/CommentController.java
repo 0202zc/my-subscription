@@ -20,7 +20,7 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
 
     @GetMapping("/queryAllComments")

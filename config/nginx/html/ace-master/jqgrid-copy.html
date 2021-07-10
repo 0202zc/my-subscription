@@ -46,7 +46,7 @@
     <![endif]-->
 </head>
 
-<body class="no-skin">
+<body class="no-skin" onload="pageLoad();">
 <div id="navbar" class="navbar navbar-default          ace-save-state">
     <div class="navbar-container ace-save-state" id="navbar-container">
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
@@ -1098,17 +1098,132 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-    var grid_data;
-    $.ajaxSettings.async = false;
+    var ws;
+    var grid_data;  // 数据
+    var flag;   // 检测浏览器是否支持WebSocket
 
-    $.getJSON("http://localhost:7000/MySubscription/user/queryUsers").done(function (data) {
-        grid_data = data;
-        $("#alert-info").removeClass("alert-info").addClass("alert-success");
-        $('#information').text("数据加载完毕");
-    }).fail(function () {
-        $("#alert-info").removeClass("alert-info").addClass("alert-danger");
-        $('#information').text("数据请求失败");
-    });
+    function WebSocketConnect() {
+        if ("WebSocket" in window && typeof (WebSocket) !== "undefined") {
+            flag = true;
+            console.log("您的浏览器支持WebSocket");
+            ws = new WebSocket("ws://localhost:7000/MySubscription/ws/asset");
+            ws.onopen = function () {
+                ws.send("queryUsers");
+            }
+
+            ws.onmessage = function (event) {
+                var received_msg = event.data;
+                if (received_msg === null) {
+                    grid_data = null;
+                    $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
+                    $('#information').text("数据请求失败");
+                } else if(received_msg.indexOf("连接") !== -1){
+                    $("#alert-info").removeClass("alert-danger alert-success").addClass("alert-info");
+                    $('#information').text("数据请求中...");
+                } else {
+                    grid_data = received_msg;
+                    setTimeout(function () {
+                        grid_data = jQuery.parseJSON(grid_data);
+                        dataLoad();
+                    }, 500);
+                    $("#alert-info").removeClass("alert-info alert-danger").addClass("alert-success");
+                    $('#information').text("数据加载完毕");
+                }
+            }
+
+            ws.onclose = function () {
+                $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
+                $('#information').text("连接已关闭");
+                console.log("连接已关闭.");
+            }
+
+            ws.onerror = function () {
+                $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
+                $('#information').text("连接错误");
+                console.log("连接错误");
+            }
+
+            window.onbeforeunload = function () {
+                ws.close();
+            }
+
+            //窗口关闭时，关闭连接
+            window.unload = function () {
+                ws.close();
+            };
+        } else {
+            console.log("您的浏览器不支持 WebSocket!");
+            flag = false;
+        }
+    }
+
+
+    $.ajaxSettings.async = false;
+    var loadIntervalId; // 定时器id
+    var checkPage;
+    var checkEdit = false;  // 检查是否处于编辑模式
+
+    // 加载页面时请求数据
+    function pageLoad() {
+        WebSocketConnect();
+
+        if (flag === false) {
+            getData();
+            dataLoad();
+            checkPage = setInterval("checkExpand();", 2000);
+        } else {
+            setTimeout(function () {
+                dataLoad();
+            }, 500);
+        }
+        console.log("数据请求完毕");
+    }
+
+    // 检查是否有展开行数据
+    function checkExpand() {
+        console.log($("input[type='checkbox']").is(':checked'));
+        // 如果勾选了checkbox
+        if ($("input[type='checkbox']").is(':checked')) {
+            clearInterval(loadIntervalId);
+            loadIntervalId = -1;
+            return;
+        }
+        // 如果没有处于编辑模式
+        if (!checkEdit) {
+            if ($(".ui-sg-expanded").length > 0) {
+                clearInterval(loadIntervalId);
+                loadIntervalId = -1;
+            } else {
+                if (typeof (loadIntervalId) === 'undefined' || loadIntervalId === -1) {
+                    loadIntervalId = setInterval("checkExpand();getData();dataLoad();", 3000);
+                }
+            }
+        }
+    }
+
+    // 加载数据
+    function dataLoad() {
+        // 清空数据
+        $("#grid-table").jqGrid('clearGridData');
+        // 重载数据
+        $("#grid-table").jqGrid('setGridParam', {
+            dataType: "local",
+            data: grid_data
+        }).trigger("reloadGrid");
+    }
+
+    // 获取数据
+    function getData() {
+        $.getJSON("http://localhost:7000/MySubscription/user/queryUsers").done(function (data) {
+            grid_data = data;
+            $("#alert-info").removeClass("alert-info alert-danger").addClass("alert-success");
+            $('#information').text("数据加载完毕");
+            return data;
+        }).fail(function () {
+            $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
+            $('#information').text("数据请求失败");
+        });
+    }
 
     jQuery(function ($) {
         var grid_selector = "#grid-table";
@@ -1150,7 +1265,6 @@
         $("#grid-table").on("click", ".btn.btn-minier", function (e) {
             var row = $(this).parent("td").parent("tr").find("td")[0];
             var index = $(row).text();   // 找到对应的id
-            console.log(index);
 
             $.ajax({
                 url: "http://localhost:7000/MySubscription/subscribe/updateSubsState",
@@ -1208,7 +1322,7 @@
                 // $("#alert-info").removeClass("alert-info").addClass("alert-success");
                 // $('#information').text("服务列表获取成功");
             }).fail(function () {
-                $("#alert-info").removeClass("alert-info").addClass("alert-danger");
+                $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                 $('#information').text("服务列表获取失败");
             });
             return res;
@@ -1234,7 +1348,7 @@
                 $.getJSON("http://localhost:7000/MySubscription/subscribe/querySubscriptionsByUserId/" + rowId).done(function (data) {
                     subgrid_data = data;
                 }).fail(function () {
-                    $("#alert-info").removeClass("alert-info").addClass("alert-danger");
+                    $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                     $('#information').text("用户服务订阅数据获取失败");
                 });
                 if (subgrid_data.length !== 0) {
@@ -1294,7 +1408,6 @@
                             reloadAfterSubmit: true,
                             beforeShowForm: beforeEditCallback,
                             afterSubmit: function (res) {
-                                console.log(res.responseText);
                                 location.reload();
                             }
                         }
@@ -1439,18 +1552,21 @@
         $('#gview_grid-table').on('click', '.ui-icon-pencil', function (e) {
             var $row = $(this).parents('tr')[0];
             var check = $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).attr('title').trim();
-            console.log(check);
             if (check === '允许发送') {
                 $('#' + $row['id'] + '_isAllowed').attr('checked', 'checked');
             } else if (check === '拒绝发送') {
                 $('#' + $row['id'] + '_isAllowed').removeAttr('checked');
             }
             var role = $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).attr('title').trim();
-            console.log(role);
             if (role === 'admin') {
                 $('select#' + $row['id'] + '_role').val("0");
             } else if (role === 'user') {
                 $('select#' + $row['id'] + '_role').val("1");
+            }
+            if (flag === false) {
+                clearInterval(loadIntervalId);
+                loadIntervalId = -1;
+                checkEdit = true;
             }
         })
 
@@ -1459,7 +1575,6 @@
             var $row = $(this).parents('tr')[0];
             setTimeout(function (e) {
                 $.getJSON("http://localhost:7000/MySubscription/user/queryUser/" + $row['id']).done(function (data) {
-                    console.log(data);
                     if (typeof (data['role']) !== 'undefined') {
                         if (data['role'] === 1) {
                             $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).attr('title', ' user');
@@ -1478,10 +1593,19 @@
                         $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).html(format_authority(data['isAllowed']));
                     }
                 }).fail(function () {
-                    $("#alert-info").removeClass("alert-info").addClass("alert-danger");
+                    $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                     $('#information').text("数据请求失败");
                 });
+                checkEdit = false;
+                ws.send("updateUser");
             }, 90);
+            if (flag === false) {
+                setTimeout(function () {
+                    if (typeof (loadIntervalId) === 'undefined' || loadIntervalId === -1) {
+                        loadIntervalId = setInterval("getData();dataLoad();", 3000);
+                    }
+                }, 200);
+            }
         })
 
         // 编辑后点击取消按钮
@@ -1489,7 +1613,6 @@
             var $row = $(this).parents('tr')[0];
             setTimeout(function (e) {
                 $.getJSON("http://localhost:7000/MySubscription/user/queryUser/" + $row['id']).done(function (data) {
-                    console.log(data);
                     if (typeof (data['role']) !== 'undefined') {
                         if (data['role'] === 1) {
                             $($('#gview_grid-table tr#' + $row['id']).children('td')[7]).attr('title', ' user');
@@ -1508,12 +1631,19 @@
                         $($('#gview_grid-table tr#' + $row['id']).children('td')[6]).html(format_authority(data['isAllowed']));
                     }
                 }).fail(function () {
-                    $("#alert-info").removeClass("alert-info").addClass("alert-danger");
+                    $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                     $('#information').text("数据请求失败");
                 });
+                checkEdit = false;
             }, 20);
+            if (flag === false) {
+                setTimeout(function () {
+                    if (typeof (loadIntervalId) === 'undefined' || loadIntervalId === -1) {
+                        loadIntervalId = setInterval("getData();dataLoad();", 3000);
+                    }
+                }, 200);
+            }
         })
-
 
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid', pager_selector,

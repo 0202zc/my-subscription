@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/services")
 public class ServicesController {
     @Autowired
-    ServicesService servicesService;
+    private ServicesService servicesService;
 
     @GetMapping("/queryServices")
     public String queryServices(Integer enabled) {

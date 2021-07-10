@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/subscribe")
 public class SubscriptionController {
     @Autowired
-    SubscriptionService subscriptionService;
+    private SubscriptionService subscriptionService;
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @GetMapping("/queryAllSubscriptions")
     public List<SubscriptionDO> queryAllSubscriptions() {

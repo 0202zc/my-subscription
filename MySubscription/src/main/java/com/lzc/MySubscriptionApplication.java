@@ -3,12 +3,15 @@ package com.lzc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Liang Zhancheng
  */
 @MapperScan(value = "com.lzc.mapper")
 @SpringBootApplication
+@ServletComponentScan
 public class MySubscriptionApplication {
 
     public static void main(String[] args) {

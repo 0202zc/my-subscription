@@ -27,10 +27,10 @@ import java.util.List;
 @RequestMapping("/crawler")
 public class CrawlerController {
     @Autowired
-    CrawlerService crawlerService;
+    private CrawlerService crawlerService;
 
     @Autowired
-    ServicesService servicesService;
+    private ServicesService servicesService;
 
     @GetMapping("/queryAllCrawlers")
     public String queryAllCrawlers(HttpServletResponse response) {
