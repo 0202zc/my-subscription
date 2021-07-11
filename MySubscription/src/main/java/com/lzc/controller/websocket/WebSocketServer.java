@@ -2,6 +2,7 @@ package com.lzc.controller.websocket;
 
 import com.alibaba.fastjson.JSON;
 import com.lzc.config.HttpSessionConfig;
+import com.lzc.config.WebSocketConfig;
 import com.lzc.pojo.UserDO;
 import com.lzc.service.impl.UserServiceImpl;
 import com.lzc.util.SpringUtils;
@@ -75,8 +76,11 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose(Session session) {
-        SESSION_SET.remove(session);
-        ONLINE_SESSION.remove(String.valueOf(session.getId()));
+        if (session != null) {
+            SESSION_SET.remove(session);
+            ONLINE_SESSION.remove(String.valueOf(session.getId()));
+        }
+        System.out.println("SESSION_SET.size(): " + SESSION_SET.size());
         int cnt = ONLINE_COUNT.decrementAndGet();
         log.info("有连接关闭，当前连接数为：{}", cnt);
     }
@@ -90,11 +94,11 @@ public class WebSocketServer {
     public void onMessage(String message, Session session) {
         log.info("来自 {} 客户端的消息：{}", session.getId(), message);
         Object object = null;
-        if ("queryUsers".equals(message)) {
+        if (WebSocketConfig.GET_USERS.equals(message)) {
             UserServiceImpl userService = SpringUtils.getBean(UserServiceImpl.class);
             object = userService.queryUsers(new UserDO());
             sendMessage(session, JSON.toJSONString(object));
-        } else if ("updateUser".equals(message)) {
+        } else if (WebSocketConfig.UPDATE_USER.equals(message)) {
             try {
                 UserServiceImpl userService = SpringUtils.getBean(UserServiceImpl.class);
                 object = userService.queryUsers(new UserDO());

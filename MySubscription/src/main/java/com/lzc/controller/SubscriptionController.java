@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.lzc.pojo.SubscriptionDO;
 import com.lzc.service.CommentService;
 import com.lzc.service.SubscriptionService;
+import com.lzc.service.impl.ServicesServiceImpl;
 import com.lzc.util.JsonUtils;
+import com.lzc.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,9 @@ public class SubscriptionController {
         boolean flag = true;
 
         for (String id : services) {
+            if (SpringUtils.getBean(ServicesServiceImpl.class).queryServicesById(Integer.parseInt(id)) == null) {
+                return JSON.toJSONString("该" + id + "号服务不存在");
+            }
             if (sendTime != null && sendTime.length() > 0) {
                 // 批量订阅服务
                 for (String time : times) {
@@ -94,7 +99,7 @@ public class SubscriptionController {
         boolean flag = true;
         for (String id : services) {
             for (String time : times) {
-                if (subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) != 1){
+                if (subscriptionService.deleteSubscription(email, Integer.parseInt(id), time) != 1) {
                     flag = false;
                 }
             }

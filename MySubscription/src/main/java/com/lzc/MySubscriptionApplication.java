@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan(value = "com.lzc.mapper")
 @SpringBootApplication
 @ServletComponentScan
+@EnableScheduling
 public class MySubscriptionApplication {
 
     public static void main(String[] args) {

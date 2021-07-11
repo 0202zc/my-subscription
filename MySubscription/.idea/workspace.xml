@@ -7,7 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c179547-b59b-42a0-934b-63e833ea9ce9" name="Default Changelist" comment="" />
+    <list default="true" id="0c179547-b59b-42a0-934b-63e833ea9ce9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lzc/controller/SubscriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lzc/controller/SubscriptionController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +50,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
+  </component>
   <component name="ProjectId" id="1syDqTMfcyM3OGC7Ci05O3ncV48" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -68,10 +73,10 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="ReactorSettings">
@@ -307,7 +312,16 @@
       <workItem from="1625622725852" duration="285000" />
       <workItem from="1625635326226" duration="232000" />
       <workItem from="1625668990319" duration="68000" />
-      <workItem from="1625713986573" duration="4029000" />
+      <workItem from="1625713986573" duration="5361000" />
+      <workItem from="1625833781296" duration="12669000" />
+      <workItem from="1625848373221" duration="174000" />
+      <workItem from="1625882198068" duration="16109000" />
+      <workItem from="1625900959699" duration="10000" />
+      <workItem from="1625900992336" duration="15610000" />
+      <workItem from="1625923436353" duration="3707000" />
+      <workItem from="1625931911590" duration="3107000" />
+      <workItem from="1625972241901" duration="217000" />
+      <workItem from="1625974213753" duration="9677000" />
     </task>
     <task id="LOCAL-00001" summary="新增Services文件上传类型列、输入长度配置文件LenghConfig.java">
       <created>1624893469360</created>
@@ -480,6 +494,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="com.alibaba.fastjson.JSONException" package="com.alibaba.fastjson" />
           <option name="timeStamp" value="5" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="13" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1103,10 +1103,11 @@
     var flag;   // 检测浏览器是否支持WebSocket
 
     function WebSocketConnect() {
+        var url = "ws://localhost:7000/MySubscription/ws/asset";
         if ("WebSocket" in window && typeof (WebSocket) !== "undefined") {
             flag = true;
             console.log("您的浏览器支持WebSocket");
-            ws = new WebSocket("ws://localhost:7000/MySubscription/ws/asset");
+            ws = new WebSocket(url);
             ws.onopen = function () {
                 ws.send("queryUsers");
             }
@@ -1117,9 +1118,11 @@
                     grid_data = null;
                     $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                     $('#information').text("数据请求失败");
-                } else if(received_msg.indexOf("连接") !== -1){
+                } else if (received_msg.indexOf("连接") !== -1) {
                     $("#alert-info").removeClass("alert-danger alert-success").addClass("alert-info");
                     $('#information').text("数据请求中...");
+                } else if (received_msg === "connected") {
+
                 } else {
                     grid_data = received_msg;
                     setTimeout(function () {
@@ -1135,12 +1138,14 @@
                 $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                 $('#information').text("连接已关闭");
                 console.log("连接已关闭.");
+                reconnect("ws://localhost:7000/MySubscription/ws/asset");
             }
 
             ws.onerror = function () {
                 $("#alert-info").removeClass("alert-info alert-success").addClass("alert-danger");
                 $('#information').text("连接错误");
                 console.log("连接错误");
+                reconnect("ws://localhost:7000/MySubscription/ws/asset");
             }
 
             window.onbeforeunload = function () {
@@ -1151,6 +1156,72 @@
             window.unload = function () {
                 ws.close();
             };
+
+            function reconnect(url) {
+                if (reconnect.lockReconnect) return;
+                reconnect.lockReconnect = true;
+                setTimeout(function () {     //没连接上会一直重连，设置延迟避免请求过多
+                    // createWebSocket(url);
+                    WebSocketConnect();
+                    reconnect.lockReconnect = false;
+                }, 2000);
+            }
+
+            // 实例websocket
+            function createWebSocket(url) {
+                try {
+                    if ('WebSocket' in window) {
+                        ws = new WebSocket(url);
+                    } else if ('MozWebSocket' in window) {
+                        ws = new MozWebSocket(url);
+                    } else {
+                        _alert("当前浏览器不支持websocket协议,建议使用现代浏览器", 3000)
+                    }
+                    initEventHandle(url);
+                } catch (e) {
+                    reconnect(url);
+                }
+            }
+
+            // 初始化事件函数
+            function initEventHandle(url) {
+                ws.onclose = function () {
+                    reconnect(url);
+                };
+                ws.onerror = function (err) {
+                    reconnect(url);
+                };
+                ws.onopen = function () {
+                    heartCheck.reset().start();      //心跳检测重置
+                };
+                ws.onmessage = function (msg) {    //如果获取到消息，心跳检测重置
+                    heartCheck.reset().start();      //拿到任何消息都说明当前连接是正常的
+                    function handleMsg(msg) {
+                        if(msg['data'] === "连接成功" || msg['data'] === "connected") {
+                            $("#alert-info").removeClass("alert-info alert-danger").addClass("alert-success");
+                            $('#information').text("数据加载完毕");
+                        }
+                    }
+
+                    handleMsg(msg)
+                };
+            }
+
+            var heartCheck = {
+                timeout: 5 * 1000,  //  心跳检测时长
+                timeoutObj: null, // 定时变量
+                reset: function () { // 重置定时
+                    clearTimeout(this.timeoutObj);
+                    return this;
+                },
+                start: function () { // 开启定时
+                    var self = this;
+                    this.timeoutObj = setTimeout(function () {
+                        // 心跳时间内收不到消息，主动触发连接关闭，开始重连
+                        ws.close();
+                    }, this.timeout)
+                }
+            }
         } else {
             console.log("您的浏览器不支持 WebSocket!");
             flag = false;

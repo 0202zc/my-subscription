@@ -11,6 +11,10 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  */
 @Configuration
 public class WebSocketConfig {
+
+    public static final String GET_USERS = "queryUsers";
+    public static final String UPDATE_USER = "updateUser";
+
     /**
      * 给spring容器注入这个ServerEndpointExporter对象
      * 相当于xml：
