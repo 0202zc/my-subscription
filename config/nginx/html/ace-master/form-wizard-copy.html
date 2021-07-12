@@ -1205,10 +1205,12 @@
                                                         <div class="col-xs-12 col-sm-9" id="subscribe-list">
 
                                                         </div>
-                                                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" style="color: #2a8bcb;"> 没有想要的服务?</label>
+                                                        <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                                                               style="color: #2a8bcb;"> 没有想要的服务?</label>
                                                         <div class="col-xs-12 col-sm-9" style="padding-top: 7px;">
                                                             <label>
-                                                                <span class="lbl" style="color: #2a8bcb;"> <a href="dropzone-copy.html">【戳这里】我想自定义服务</a></span>
+                                                                <span class="lbl" style="color: #2a8bcb;"> <a
+                                                                        href="dropzone-copy.html">【戳这里】我想自定义服务</a></span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1221,7 +1223,8 @@
                                                         <div class="col-xs-12 col-sm-9">
                                                             <div>
                                                                 <label class="line-height-1 blue">
-                                                                    <input name="available" id="isAllowed" value="1"
+                                                                    <input name="available" id="isAllowed_allow"
+                                                                           value="1"
                                                                            type="radio" class="ace" checked/>
                                                                     <span class="lbl"> 开启</span>
                                                                 </label>
@@ -1229,7 +1232,8 @@
 
                                                             <div>
                                                                 <label class="line-height-1 blue">
-                                                                    <input name="available" value="0" type="radio"
+                                                                    <input name="available" id="isAllowed_refuse"
+                                                                           value="0" type="radio"
                                                                            class="ace"/>
                                                                     <span class="lbl"> 关闭</span>
                                                                 </label>
@@ -1648,7 +1652,7 @@
     // 动态添加服务
     function addSubs(data) {
         for (var item in data) {
-            if(data[item]['enabled'] === 1) {
+            if (data[item]['enabled'] === 1) {
                 $("#subscribe-list").append('<div><label>' +
                     '<input name="subscription" id="subscription' + data[item]['id'] + '" value="' + data[item]['id'] + '" type="checkbox" class="ace"/>' +
                     '<span class="lbl"> ' + data[item]['serviceName'] + '</span>' +
@@ -1764,11 +1768,11 @@
             //.on('changed.fu.wizard', function() {
             //})
             .on('finished.fu.wizard', function (e) {
-                var email = $("#email").val();
-                var username = $("#userName").val();
+                var email = $.trim($("#email").val());
+                var username = $.trim($("#userName").val());
                 var isAllowed = allowed;
                 var subscription = subslist;
-                var comment = $("#comment").val();
+                var comment = $.trim($("#comment").val());
                 $.ajax({
                     url: "http://localhost:7000/MySubscription/subscribe/insertSubscription",
                     type: "post",
@@ -1799,7 +1803,7 @@
 
                         } else {
                             bootbox.dialog({
-                                message: "Oh no! Your information was not saved!",
+                                message: "Oh no! Your information was not saved! Cause: " + data,
                                 buttons: {
                                     "success": {
                                         "label": "OK",
@@ -1914,10 +1918,10 @@
                     required: true
                 },
                 available: {
-                    required: true,
+                    required: true
                 },
                 agree: {
-                    required: true,
+                    required: true
                 }
             },
 

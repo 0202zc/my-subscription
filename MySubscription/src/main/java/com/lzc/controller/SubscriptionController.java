@@ -43,7 +43,9 @@ public class SubscriptionController {
     @PostMapping("/insertSubscription")
     public String insertSubscription(HttpServletResponse response, @RequestParam("userName") String userName, @RequestParam("email") String email, @RequestParam("serviceId") String serviceId, @RequestParam("sendTime") String sendTime, @RequestParam("allowSend") Integer allowSend, @RequestParam("cancelAlert") String cancelAlert, @RequestParam("comment") String comment) {
         if (serviceId == null || serviceId.length() == 0) {
-            return JSON.toJSONString(JsonUtils.FAIL_STRING);
+            return JSON.toJSONString("请至少选择一项服务！");
+        } else if (sendTime == null || sendTime.length() == 0) {
+            return JSON.toJSONString("请至少选择一个推送时间");
         }
 
         userName = userName.trim();
