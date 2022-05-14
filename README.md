@@ -84,7 +84,3 @@
 3.  提交代码
 4.  新建 Pull Request
 
-
-## Demo
-
-服务订阅：http://106.52.58.41/form-wizard-copy.html
